@@ -1,0 +1,17 @@
+{
+  "name": "online-library-monorepo",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend",
+    "packages/*"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.9.7",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,4 +1,4 @@
-import { ApiResponse } from 'shared-types';
+import type { ApiResponse } from 'shared-types';
 
 export const apiResponseFactory = {
   success<T>(data?: T): ApiResponse<T> {

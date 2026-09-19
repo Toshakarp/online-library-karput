@@ -9,9 +9,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.6.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
@@ -19,6 +21,8 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",
+    "bcryptjs": "^3.0.3",
+    "jsonwebtoken": "^9.0.3",
     "shared-types": "file:../packages/shared-types"
   }
 }

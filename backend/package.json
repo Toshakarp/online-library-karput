@@ -25,6 +25,7 @@
     "bcryptjs": "^3.0.3",
     "jsonwebtoken": "^9.0.3",
     "node-cache": "^5.1.2",
-    "shared-types": "file:../packages/shared-types"
+    "shared-types": "file:../packages/shared-types",
+    "zod": "^4.6.5"
   }
 }

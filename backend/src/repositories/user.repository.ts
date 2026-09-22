@@ -2,6 +2,15 @@ import { supabase } from '@/config/supabase.config.js';
 import type { UserProfile, UpdateUserProfileDto } from 'shared-types';
 import { NotFoundError, ConflictError } from '@/errors/app.errors.js';
 
+const mapToUserProfile = (data: any): UserProfile => ({
+  id: data.id,
+  username: data.username,
+  displayName: data.display_name,
+  avatarUrl: data.avatar_url,
+  createdAt: data.created_at,
+  updatedAt: data.updated_at,
+});
+
 export const userRepository = {
     
   async findById(id: string): Promise<UserProfile & { password_hash: string } | null> {
@@ -12,12 +21,7 @@ export const userRepository = {
       .single();
     if (error || !data) return null;
     return {
-      id: data.id,
-      username: data.username,
-      displayName: data.display_name,
-      avatarUrl: data.avatar_url,
-      createdAt: data.created_at,
-      updatedAt: data.updated_at,
+      ...mapToUserProfile(data),
       password_hash: data.password_hash
     };
   },
@@ -30,12 +34,7 @@ export const userRepository = {
       .single();
     if (error || !data) return null;
     return {
-      id: data.id,
-      username: data.username,
-      displayName: data.display_name,
-      avatarUrl: data.avatar_url,
-      createdAt: data.created_at,
-      updatedAt: data.updated_at,
+      ...mapToUserProfile(data),
       password_hash: data.password_hash
     };
   },
@@ -50,14 +49,7 @@ export const userRepository = {
       if (error.code === '23505') throw new ConflictError('Username already taken');
       throw error;
     }
-    return {
-      id: data.id,
-      username: data.username,
-      displayName: data.display_name,
-      avatarUrl: data.avatar_url,
-      createdAt: data.created_at,
-      updatedAt: data.updated_at
-    };
+    return mapToUserProfile(data);
   },
 
   async updateProfile(id: string, dto: UpdateUserProfileDto): Promise<UserProfile> {
@@ -72,14 +64,7 @@ export const userRepository = {
       .select('id, username, display_name, avatar_url, created_at, updated_at')
       .single();
     if (error || !data) throw new NotFoundError('User not found');
-    return {
-      id: data.id,
-      username: data.username,
-      displayName: data.display_name,
-      avatarUrl: data.avatar_url,
-      createdAt: data.created_at,
-      updatedAt: data.updated_at
-    };
+    return mapToUserProfile(data);
   },
 
   async updateUsername(id: string, username: string): Promise<UserProfile> {
@@ -94,14 +79,7 @@ export const userRepository = {
       throw error;
     }
     if (!data) throw new NotFoundError('User not found');
-    return {
-      id: data.id,
-      username: data.username,
-      displayName: data.display_name,
-      avatarUrl: data.avatar_url,
-      createdAt: data.created_at,
-      updatedAt: data.updated_at
-    };
+    return mapToUserProfile(data);
   },
 
   async updatePasswordHash(id: string, hash: string): Promise<void> {

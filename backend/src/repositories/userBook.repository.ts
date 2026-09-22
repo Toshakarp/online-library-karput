@@ -84,10 +84,7 @@ export const userBookRepository = {
   async getUserBooks(userId: string, query: GetUserBooksQueryDto): Promise<{ items: BookWithUserInteraction[]; total: number }> {
     let queryBuilder = supabase
       .from('user_books')
-      .select(`
-        is_liked,
-        status,
-        updated_at,
+      .select(`is_liked, status, updated_at,
         cached_books!inner (
           olid, title, author_name, cover_url, likes_count, created_at
         )

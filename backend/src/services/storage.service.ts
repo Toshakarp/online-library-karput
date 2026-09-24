@@ -6,5 +6,9 @@ export const storageService = {
     const filePath = `${userId}.${ext}`;
 
     return await storageRepository.uploadAvatar(filePath, buffer, mimeType);
+  },
+
+  async deleteAvatar(userId: string): Promise<void> {
+    await storageRepository.deleteAvatar(userId);
   }
 };

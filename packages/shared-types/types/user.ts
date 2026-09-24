@@ -9,7 +9,7 @@ export interface UserProfile {
 
 export interface UpdateUserProfileDto {
   displayName?: string;
-  avatarUrl?: string;
+  avatarUrl?: string | null | undefined;
 }
 
 export interface ChangeUsernameDto {

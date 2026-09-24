@@ -12,13 +12,12 @@ const mapToUserProfile = (data: any): UserProfile => ({
 });
 
 export const userRepository = {
-    
   async findById(id: string): Promise<UserProfile & { password_hash: string } | null> {
     const { data, error } = await supabase
       .from('users')
       .select('id, username, display_name, avatar_url, created_at, updated_at, password_hash')
       .eq('id', id)
-      .single();
+      .maybeSingle();
     if (error || !data) return null;
     return {
       ...mapToUserProfile(data),
@@ -31,7 +30,7 @@ export const userRepository = {
       .from('users')
       .select('id, username, display_name, avatar_url, created_at, updated_at, password_hash')
       .eq('username', username)
-      .single();
+      .maybeSingle();
     if (error || !data) return null;
     return {
       ...mapToUserProfile(data),

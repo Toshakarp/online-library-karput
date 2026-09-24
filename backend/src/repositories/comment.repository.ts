@@ -39,7 +39,7 @@ export const commentRepository = {
       .eq('book_olid', olid)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
-    
+
     if (error) throw error;
     const items: Comment[] = (data || []).map(mapToComment);
     return { items, total: count || 0 };
@@ -53,26 +53,36 @@ export const commentRepository = {
       .eq('user_id', userId)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
-    
+
     if (error) throw error;
     const items: Comment[] = (data || []).map(mapToComment);
     return { items, total: count || 0 };
   },
 
-  async update(id: string, content: string): Promise<Comment> {
+  async update(id: string, userId: string, content: string): Promise<Comment | null> {
     const { data, error } = await supabase
       .from('comments')
       .update({ content, updated_at: new Date().toISOString() })
       .eq('id', id)
+      .eq('user_id', userId)
       .select(`*, users (id, username, display_name, avatar_url, created_at, updated_at)`)
-      .single();
+      .maybeSingle();
+
     if (error) throw error;
-    return mapToComment(data);
+    return data ? mapToComment(data) : null;
   },
 
-  async delete(id: string): Promise<void> {
-    const { error } = await supabase.from('comments').delete().eq('id', id);
+  async delete(id: string, userId: string): Promise<boolean> {
+    const { data, error } = await supabase
+      .from('comments')
+      .delete()
+      .eq('id', id)
+      .eq('user_id', userId)
+      .select('id')
+      .maybeSingle();
+
     if (error) throw error;
+    return !!data;
   },
 
   async findOwnerId(id: string): Promise<string | null> {

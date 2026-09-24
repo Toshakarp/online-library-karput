@@ -2,16 +2,8 @@ import type { Request, Response, NextFunction } from 'express';
 import { jwtUtil } from '@/utils/jwt.util.js';
 import { UnauthorizedError } from '@/errors/app.errors.js';
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: { id: string } | undefined;
-    }
-  }
-}
-
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    
+
   const [scheme, token] = req.headers.authorization?.split(' ') ?? [];
 
   if (scheme !== 'Bearer' || !token) {

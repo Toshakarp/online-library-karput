@@ -1,0 +1,18 @@
+import { Router } from 'express';
+import { bookController } from '@/controllers/book.controller.js';
+import { optionalAuthMiddleware } from '@/middlewares/optionalAuth.middleware.js';
+import { validate } from '@/middlewares/validate.middleware.js';
+import { z } from 'zod';
+
+const router = Router();
+
+const searchSchema = z.object({
+    q: z.string().min(1),
+    page: z.string().regex(/^\d+$/).transform(Number),
+    limit: z.string().regex(/^\d+$/).transform(Number)
+});
+
+router.get('/search', optionalAuthMiddleware, validate(searchSchema, 'query'), bookController.search);
+router.get('/:olid', optionalAuthMiddleware, bookController.getByOlid);
+
+export default router;

@@ -8,11 +8,15 @@ import { errorMiddleware } from '@/middlewares/error.middleware.js';
 
 import { env } from '@/config/env.config.js';
 
+import routes from '@/routes/index.js';
+
 export const app = express();
 
 app.use(express.json());
 
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use('/api', routes);
 
 app.get('/', (req, res) => {
     res.redirect('/api/docs');

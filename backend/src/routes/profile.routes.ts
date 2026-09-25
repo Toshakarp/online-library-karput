@@ -21,6 +21,8 @@ router.use(authMiddleware);
 
 router.get('/me', profileController.getMe);
 
+router.patch('/me', validate(updateProfileSchema, 'body'), profileController.updateMe);
+
 router.patch('/me/username', validate(updateUsernameSchema, 'body'), profileController.updateUsername);
 
 router.post('/me/avatar', upload.single('avatar'), profileController.uploadAvatar);

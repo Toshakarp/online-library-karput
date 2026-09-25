@@ -5,7 +5,18 @@ import { ZodError } from 'zod';
 export const validate = (schema: ZodSchema, source: 'body' | 'query' | 'params') => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      req[source] = schema.parse(req[source]);
+
+      const parsed = schema.parse(req[source]);
+
+      if (source === 'query') {
+        for (const key of Object.keys(req.query)) {
+          delete req.query[key];
+        }
+        Object.assign(req.query, parsed);
+      } else {
+        req[source] = parsed;
+      }
+
       next();
     } catch (error) {
       if (error instanceof ZodError) {

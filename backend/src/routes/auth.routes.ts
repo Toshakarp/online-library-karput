@@ -16,6 +16,8 @@ const changePasswordSchema = z.object({
     newPassword: z.string().min(6)
 });
 
+router.post('/register', validate(registerSchema, 'body'), authController.register);
+
 router.post('/login', validate(registerSchema, 'body'), authController.login);
 
 router.patch('/change-password', authMiddleware, validate(changePasswordSchema, 'body'), authController.changePassword);

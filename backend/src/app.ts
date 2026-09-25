@@ -13,9 +13,9 @@ app.use(cors({ origin: env.FRONTEND_ORIGIN }));
 
 app.use(express.json());
 
-app.use('/api/docs', swaggerUi.serve as any, swaggerUi.setup(swaggerSpec) as any);
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use('/api', routes as any);
+app.use('/api', routes);
 
 app.get('/', (req, res) => {
     res.redirect('/api/docs');

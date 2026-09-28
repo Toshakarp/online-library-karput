@@ -7,7 +7,7 @@ export interface Comment {
   content: string;
   createdAt: string;
   updatedAt: string;
-  author?: UserProfile;
+  author?: UserProfile | undefined;
 }
 
 export interface CreateCommentDto {

@@ -1,0 +1,92 @@
+@use '../../styles/variables' as *;
+@use '../../styles/animations';
+
+.wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + $space-2);
+  background: $color-bg-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-lg;
+  min-width: 190px;
+  padding: $space-2 0;
+  z-index: $z-dropdown;
+  overflow: hidden;
+  animation: fadeInDown $transition-fast;
+}
+
+.alignRight {
+  right: 0;
+}
+
+.alignLeft {
+  left: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  width: 100%;
+  padding: $space-3 $space-4;
+  font-size: $font-size-base;
+  color: $color-text-primary;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: $color-bg-surface;
+  }
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: $radius-pill;
+  flex-shrink: 0;
+}
+
+.dotYellow {
+  background-color: $color-status-want;
+}
+
+.dotPurple {
+  background-color: $color-status-reading;
+}
+
+.dotGreen {
+  background-color: $color-status-completed;
+}
+
+.dotNeutral {
+  background-color: $color-border;
+}
+
+.danger {
+  color: $color-error;
+
+  &:hover {
+    background: $color-error-light;
+  }
+}
+
+.active {
+  font-weight: $font-weight-semibold;
+  background: $color-bg-surface;
+}
+
+.divider {
+  height: 1px;
+  background: $color-border;
+  margin: $space-1 0;
+}
+

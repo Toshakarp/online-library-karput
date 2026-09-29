@@ -7,4 +7,6 @@ export const ROUTES = {
   MY_COMMENTS: '/profile/comments',
   CHANGE_PASSWORD: '/profile/change-password',
   BOOK_PATH: (olid: string) => `/books/${olid}`,
+  MY_BOOKS_CATEGORY: (category: 'liked' | 'reading_list') =>
+    `/profile/my-books?category=${category}`,
 };

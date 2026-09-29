@@ -1,5 +1,5 @@
 import { ApiResponse } from 'shared-types';
-import { useAuthStore } from '@/app/store/useAuthStore';
+import { getAuthToken } from '@/shared/lib/auth/authToken';
 
 export interface ApiError extends Error {
   code: string;
@@ -17,10 +17,11 @@ export const createApiError = (
     status,
   });
 
-const BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000').replace(
+const rawBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000').replace(
   /\/+$/,
   ''
 );
+const BASE_URL = rawBaseUrl.endsWith('/api') ? rawBaseUrl : `${rawBaseUrl}/api`;
 
 type ErrorHandler = (message: string) => void;
 
@@ -67,7 +68,7 @@ const buildHeaders = (
   customHeaders?: Record<string, string>,
   hasJsonBody?: boolean
 ): Record<string, string> => {
-  const token = useAuthStore.getState().token;
+  const token = getAuthToken();
 
   return {
     ...(hasJsonBody ? { 'Content-Type': 'application/json' } : {}),

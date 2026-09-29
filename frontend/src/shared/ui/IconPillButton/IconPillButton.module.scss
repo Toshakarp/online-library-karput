@@ -1,0 +1,116 @@
+@use '../../styles/variables' as *;
+
+.pillButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  border-radius: $radius-pill;
+  font-family: $font-family-base;
+  font-weight: $font-weight-medium;
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  border: 1px solid $color-border;
+  background-color: $color-bg-white;
+  color: $color-text-primary;
+  transition:
+    background-color $transition-base,
+    border-color $transition-base,
+    color $transition-base,
+    transform $transition-fast,
+    box-shadow $transition-fast;
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.sm {
+  height: 32px;
+  padding: 0 $space-4;
+  font-size: $font-size-sm;
+}
+
+.md {
+  height: 36px;
+  padding: 0 $space-4;
+  font-size: $font-size-base;
+}
+
+.icon,
+.rightIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.label {
+  display: inline-block;
+}
+
+.accentNeutral {
+  background-color: $color-bg-white;
+  border-color: $color-border;
+  color: $color-text-primary;
+
+  .icon,
+  .rightIcon {
+    color: $color-text-secondary;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: $color-bg-surface;
+  }
+}
+
+.accentDanger {
+  background-color: $color-error-light;
+  border-color: $color-error;
+  color: $color-error;
+  font-weight: $font-weight-semibold;
+
+  &:hover:not(:disabled) {
+    background-color: $color-error-bg-subtle;
+  }
+}
+
+.accentYellow {
+  background-color: $color-status-want-bg;
+  border-color: $color-status-want;
+  color: $color-status-want;
+  font-weight: $font-weight-medium;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+}
+
+.accentPurple {
+  background-color: $color-status-reading-bg;
+  border-color: $color-status-reading;
+  color: $color-status-reading;
+  font-weight: $font-weight-medium;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+}
+
+.accentGreen {
+  background-color: $color-status-completed-bg;
+  border-color: $color-status-completed;
+  color: $color-status-completed;
+  font-weight: $font-weight-medium;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+}

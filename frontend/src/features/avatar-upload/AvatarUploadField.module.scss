@@ -1,0 +1,32 @@
+@use '../../shared/styles/variables' as *;
+
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: $color-bg-overlay;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-bg-white;
+  opacity: 0;
+  transition: opacity $transition-base;
+
+  .wrapper:hover & {
+    opacity: 1;
+  }
+}
+
+.overlayVisible {
+  opacity: 1;
+}
+
+.input {
+  display: none;
+}

@@ -1,0 +1,64 @@
+@use '../../styles/variables' as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  color: $color-text-primary;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.h1 {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.h2 {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.subtitle {
+  font-size: $font-size-base;
+  color: $color-text-secondary;
+}
+
+.badge {
+  padding: 2px $space-3;
+  background: $color-brand-light;
+  color: $color-brand;
+  border-radius: $radius-pill;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}

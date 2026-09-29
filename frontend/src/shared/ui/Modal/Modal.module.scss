@@ -1,0 +1,58 @@
+@use '../../styles/variables' as *;
+@use '../../styles/animations';
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: $color-bg-overlay;
+  z-index: $z-modal-backdrop;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-5;
+  animation: fadeIn $transition-base;
+}
+
+.modal {
+  background: $color-bg-white;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-xl;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  z-index: $z-modal;
+  animation: scaleIn $transition-base;
+}
+
+.sm { max-width: 360px; }
+.md { max-width: 480px; }
+.lg { max-width: 640px; }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-6 $space-7;
+  border-bottom: 1px solid $color-border;
+}
+
+.title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.body {
+  padding: $space-7;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: $space-4;
+  padding: $space-5 $space-7;
+  border-top: 1px solid $color-border;
+}

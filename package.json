@@ -12,7 +12,11 @@
 
     "b-dev": "npm run dev -w backend",
     "b-build": "npm run build -w backend",
-    "b-start": "npm start -w backend"
+    "b-start": "npm start -w backend",
+
+    "f-dev": "npm run dev -w frontend",
+    "f-build": "npm run build -w frontend",
+    "f-preview": "npm run preview -w frontend"
   },
   "devDependencies": {
     "@types/node": "^26.6.2",

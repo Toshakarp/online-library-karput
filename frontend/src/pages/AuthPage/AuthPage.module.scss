@@ -1,0 +1,32 @@
+@use '../../shared/styles/variables' as *;
+
+.page {
+  min-height: calc(100vh - #{$header-height});
+  display: flex;
+  background: $color-bg-white;
+
+  @media (max-width: #{$bp-md}) {
+    flex-direction: column;
+  }
+}
+
+.illustrationPanel {
+  flex: 1;
+  background: $color-bg-surface;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-10 $space-8;
+
+  @media (max-width: #{$bp-md}) {
+    display: none;
+  }
+}
+
+.formPanel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-7 $space-5;
+}

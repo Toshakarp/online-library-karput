@@ -1,0 +1,12 @@
+@use '../../shared/styles/variables' as *;
+
+.form {
+  display: flex;
+  gap: $space-3;
+  align-items: center;
+  width: 100%;
+}
+
+.inputWrap {
+  flex: 1;
+}

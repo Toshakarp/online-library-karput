@@ -1,0 +1,62 @@
+@use '../../styles/variables' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: $space-3;
+  padding: $space-10 $space-6;
+}
+
+.compact {
+  padding: $space-6;
+  background: $color-bg-surface;
+  border-radius: $radius-lg;
+}
+
+.illustration {
+  width: 120px;
+  height: auto;
+  opacity: 0.85;
+  margin-bottom: $space-1;
+}
+
+.iconBadge {
+  width: 64px;
+  height: 64px;
+  border-radius: $radius-pill;
+  background: $color-brand-light;
+  color: $color-brand;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $space-2;
+}
+
+.title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.compact .title {
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+}
+
+.description {
+  font-size: $font-size-base;
+  color: $color-text-secondary;
+  max-width: 440px;
+  line-height: $line-height-relaxed;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: $space-1;
+}

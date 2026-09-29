@@ -1,0 +1,78 @@
+@use '../../../../shared/styles/variables' as *;
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-4;
+  padding: $space-5;
+  background: $color-bg-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-2xl;
+  transition: box-shadow $transition-base, transform $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-1px);
+  }
+}
+
+.coverLink {
+  display: flex;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: $card-cover-height;
+  gap: $space-3;
+}
+
+.infoLink {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  text-decoration: none;
+  color: inherit;
+}
+
+.title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  line-height: $line-height-snug;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.author {
+  font-size: $font-size-base;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $space-3;
+  margin-top: auto;
+}
+
+.skeletonCover {
+  width: $card-cover-width;
+  height: $card-cover-height;
+  border-radius: $radius-md;
+  flex-shrink: 0;
+}
+
+.skeletonPill {
+  border-radius: $radius-pill;
+}
+

@@ -1,0 +1,18 @@
+@use '../../shared/styles/variables' as *;
+
+.bookList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-5;
+}
+
+.bookItem {
+  flex: 0 0 calc(50% - #{$space-5} / 2);
+  max-width: calc(50% - #{$space-5} / 2);
+  min-width: 0;
+
+  @media (max-width: #{$bp-md}) {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

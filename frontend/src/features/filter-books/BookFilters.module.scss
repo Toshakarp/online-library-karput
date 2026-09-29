@@ -1,0 +1,45 @@
+@use '../../shared/styles/variables' as *;
+
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-5;
+  flex-wrap: wrap;
+}
+
+.tabs {
+  display: flex;
+  gap: $space-1;
+  background: $color-bg-surface;
+  border-radius: $radius-md;
+  padding: $space-1;
+}
+
+.tab {
+  padding: $space-2 $space-4;
+  border-radius: $radius-sm;
+  border: none;
+  background: transparent;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    color: $color-text-primary;
+  }
+}
+
+.tabActive {
+  background: $color-bg-white;
+  color: $color-brand;
+  box-shadow: $shadow-sm;
+}
+
+.statusFilter {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}

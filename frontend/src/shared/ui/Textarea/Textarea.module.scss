@@ -1,0 +1,64 @@
+@use '../../styles/variables' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  width: 100%;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+}
+
+.required {
+  color: $color-error;
+  margin-left: 2px;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 96px;
+  border: 1.5px solid $color-border;
+  border-radius: $radius-md;
+  background: $color-bg-white;
+  color: $color-text-primary;
+  font-size: $font-size-base;
+  font-family: $font-family-base;
+  padding: $space-4;
+  resize: vertical;
+  line-height: $line-height-normal;
+  transition: border-color $transition-base, box-shadow $transition-base;
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-brand;
+    box-shadow: 0 0 0 3px rgba(23, 105, 255, 0.1);
+  }
+
+  &:disabled {
+    background: $color-bg-surface;
+    color: $color-text-muted;
+    cursor: not-allowed;
+    resize: none;
+  }
+}
+
+.error {
+  border-color: $color-error !important;
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+  }
+}
+
+.errorText {
+  font-size: $font-size-xs;
+  color: $color-error;
+}

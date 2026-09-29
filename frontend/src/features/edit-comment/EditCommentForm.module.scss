@@ -1,0 +1,12 @@
+@use '../../shared/styles/variables' as *;
+
+.editArea {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.editActions {
+  display: flex;
+  gap: $space-3;
+}

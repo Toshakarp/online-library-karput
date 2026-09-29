@@ -1,0 +1,46 @@
+@use '../../styles/variables' as *;
+@use '../../styles/animations';
+
+.spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: transparent;
+  border-top-color: currentColor;
+  animation: spin 0.7s linear infinite;
+}
+
+.sm .ring {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.md .ring {
+  width: 24px;
+  height: 24px;
+  border-width: 3px;
+}
+
+.lg .ring {
+  width: 40px;
+  height: 40px;
+  border-width: 4px;
+}
+
+.primary { color: $color-brand; }
+.white { color: $color-bg-white; }
+
+.centered {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

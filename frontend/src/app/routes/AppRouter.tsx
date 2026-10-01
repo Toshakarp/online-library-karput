@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { ROUTES } from '@/shared/config/routes';
 import { ProtectedRoute } from './ProtectedRoute';
 import { Header } from '@/widgets/Header';
@@ -12,6 +12,7 @@ const ProfilePage = lazy(() => import('@/pages/ProfilePage/ProfilePage'));
 const MyBooksPage = lazy(() => import('@/pages/MyBooksPage/MyBooksPage'));
 const MyCommentsPage = lazy(() => import('@/pages/MyCommentsPage/MyCommentsPage'));
 const ChangePasswordPage = lazy(() => import('@/pages/ChangePasswordPage/ChangePasswordPage'));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage/NotFoundPage'));
 
 const PageLoader = () => (
   <div className="pageLoader">
@@ -60,7 +61,7 @@ export const AppRouter = () => (
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
     </main>

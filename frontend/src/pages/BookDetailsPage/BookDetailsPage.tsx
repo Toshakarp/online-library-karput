@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { useBookStore } from '@/entities/book';
 import { BookDetails } from '@/widgets/BookDetails';
 import { CommentsSection } from '@/widgets/CommentsSection';
@@ -7,11 +7,16 @@ import { PageContainer } from '@/shared/ui/PageContainer/PageContainer';
 import { PageHeader } from '@/shared/ui/PageHeader/PageHeader';
 import { Spinner } from '@/shared/ui/Spinner/Spinner';
 import { ErrorState } from '@/shared/ui/ErrorState/ErrorState';
+import { ROUTES } from '@/shared/config/routes';
 
 const BookDetailsPage = () => {
   const { olid } = useParams<{ olid: string }>();
   const navigate = useNavigate();
-  const { currentBook, isLoading, error, fetchBookByOlid, setCurrentBook } = useBookStore();
+  const currentBook = useBookStore((s) => s.currentBook);
+  const isLoading = useBookStore((s) => s.isLoading);
+  const error = useBookStore((s) => s.error);
+  const fetchBookByOlid = useBookStore((s) => s.fetchBookByOlid);
+  const setCurrentBook = useBookStore((s) => s.setCurrentBook);
 
   useEffect(() => {
     if (!olid) return;
@@ -20,6 +25,10 @@ const BookDetailsPage = () => {
       setCurrentBook(null);
     };
   }, [olid, fetchBookByOlid, setCurrentBook]);
+
+  if (!isLoading && error === 'NOT_FOUND') {
+    return <Navigate to={ROUTES.NOT_FOUND} replace />;
+  }
 
   return (
     <PageContainer>

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Comment } from 'shared-types';
 import { Avatar } from '@/shared/ui/Avatar/Avatar';
+import { BookCover } from '@/shared/ui/BookCover/BookCover';
 import styles from './CommentItem.module.scss';
 
 export interface CommentItemProps {
@@ -23,6 +24,7 @@ export const CommentItem = ({
   });
 
   const authorName = comment.author?.displayName || comment.author?.username || 'User';
+  const book = comment.book;
 
   return (
     <div className={styles.comment}>
@@ -31,15 +33,28 @@ export const CommentItem = ({
           className={[styles.authorRow, onClick ? styles.clickable : ''].filter(Boolean).join(' ')}
           onClick={onClick}
         >
-          <Avatar
-            src={comment.author?.avatarUrl ?? undefined}
-            name={authorName}
-            size="sm"
-          />
-          <div className={styles.authorInfo}>
-            <span className={styles.authorName}>{authorName}</span>
-            <span className={styles.date}>{formattedDate}</span>
-          </div>
+          {book ? (
+            <>
+              <BookCover src={book.coverUrl} title={book.title} size="xs" />
+              <div className={styles.authorInfo}>
+                <span className={styles.authorName}>{book.title}</span>
+                <span className={styles.bookAuthor}>{book.authorName}</span>
+                <span className={styles.date}>{formattedDate}</span>
+              </div>
+            </>
+          ) : (
+            <>
+              <Avatar
+                src={comment.author?.avatarUrl ?? undefined}
+                name={authorName}
+                size="sm"
+              />
+              <div className={styles.authorInfo}>
+                <span className={styles.authorName}>{authorName}</span>
+                <span className={styles.date}>{formattedDate}</span>
+              </div>
+            </>
+          )}
         </div>
         {actionsSlot && (
           <div className={styles.actionsSlot} onClick={(e) => e.stopPropagation()}>
@@ -61,4 +76,3 @@ export const CommentItem = ({
     </div>
   );
 };
-

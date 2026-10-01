@@ -1,14 +1,8 @@
 import { supabase } from '@/config/supabase.config.js';
+import { mapToUserBookInteraction } from './mappers/index.js';
 import type { UserBookInteraction, GetUserBooksQueryDto, ReadingStatus, BookWithUserInteraction } from 'shared-types';
 
-const mapToUserBookInteraction = (data: any): UserBookInteraction => ({
-  id: data.id,
-  userId: data.user_id,
-  bookOlid: data.book_olid,
-  isLiked: data.is_liked,
-  status: data.status as ReadingStatus | null,
-  updatedAt: data.updated_at,
-});
+
 
 const mapToBookWithUserInteraction = (data: any): BookWithUserInteraction => ({
   olid: data.cached_books.olid,
@@ -40,7 +34,7 @@ export const userBookRepository = {
     const existing = await this.findInteraction(userId, bookOlid);
     const isLiked = data.isLiked !== undefined ? data.isLiked : (existing ? existing.isLiked : false);
     const status = data.status !== undefined ? data.status : (existing ? existing.status : null);
-    
+
     if (!isLiked && !status) {
       if (existing) {
         await supabase.from('user_books').delete().eq('user_id', userId).eq('book_olid', bookOlid);

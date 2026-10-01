@@ -13,26 +13,25 @@ interface AuthState {
   updateProfile: (patch: Partial<UserProfile>) => void;
 }
 
+const initialState = {
+  token: null as string | null,
+  user: null as UserProfile | null,
+  isAuthenticated: false,
+};
+
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      token: null,
-      user: null,
-      isAuthenticated: false,
+      ...initialState,
 
-      login: (user, token) => {
-        set({ user, token, isAuthenticated: true });
-      },
+      login: (user, token) => set({ user, token, isAuthenticated: true }),
 
-      logout: () => {
-        set({ token: null, user: null, isAuthenticated: false });
-      },
+      logout: () => set(initialState),
 
-      updateProfile: (patch) => {
+      updateProfile: (patch) =>
         set((state) => ({
           user: state.user ? { ...state.user, ...patch } : null,
-        }));
-      },
+        })),
     }),
     {
       name: AUTH_STORAGE_KEY,

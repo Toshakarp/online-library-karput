@@ -1,15 +1,7 @@
 import { supabase } from '@/config/supabase.config.js';
 import type { UserProfile, UpdateUserProfileDto } from 'shared-types';
 import { NotFoundError, ConflictError } from '@/errors/app.errors.js';
-
-const mapToUserProfile = (data: any): UserProfile => ({
-  id: data.id,
-  username: data.username,
-  displayName: data.display_name,
-  avatarUrl: data.avatar_url,
-  createdAt: data.created_at,
-  updatedAt: data.updated_at,
-});
+import { mapToUserProfile } from './mappers/index.js';
 
 export const userRepository = {
   async findById(id: string): Promise<UserProfile & { password_hash: string } | null> {

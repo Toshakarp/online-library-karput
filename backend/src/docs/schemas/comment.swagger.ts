@@ -35,7 +35,7 @@
  *         schema: { type: integer, default: 10 }
  *     responses:
  *       200:
- *         description: Список комментариев текущего пользователя
+ *         description: Список комментариев текущего пользователя (включая информацию о книге и обложке в поле book)
  *
  * /api/comments:
  *   post:

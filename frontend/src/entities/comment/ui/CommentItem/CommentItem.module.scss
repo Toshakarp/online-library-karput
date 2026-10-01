@@ -35,6 +35,11 @@
   color: $color-text-primary;
 }
 
+.bookAuthor {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
 .date {
   font-size: $font-size-xs;
   color: $color-text-muted;
@@ -54,4 +59,3 @@
 .clickable {
   cursor: pointer;
 }
-

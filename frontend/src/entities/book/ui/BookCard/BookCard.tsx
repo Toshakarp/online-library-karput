@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { BookWithUserInteraction } from 'shared-types';
 import { ROUTES } from '@/shared/config/routes';
-import { BookCover } from '../BookCover/BookCover';
+import { BookCover } from '@/shared/ui/BookCover/BookCover';
 import styles from './BookCard.module.scss';
 
 interface BookCardProps {

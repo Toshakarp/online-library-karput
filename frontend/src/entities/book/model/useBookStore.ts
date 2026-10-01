@@ -1,5 +1,12 @@
 import { create } from 'zustand';
-import { BookWithUserInteraction, BookDetails, GetUserBooksQueryDto, PaginatedResponse, ReadingStatus } from 'shared-types';
+import {
+  BookWithUserInteraction,
+  BookDetails,
+  GetUserBooksQueryDto,
+  PaginatedResponse,
+  ReadingStatus,
+} from 'shared-types';
+import { ApiError } from '@/shared/api/apiClient';
 import { bookApi, SearchBooksParams } from '../api/bookApi';
 import { userBookApi } from '../api/userBookApi';
 
@@ -8,10 +15,16 @@ export const READING_STATUS_OPTIONS: {
   label: string;
   colorAccent: 'yellow' | 'purple' | 'green';
 }[] = [
-  { value: 'WANT_TO_READ', label: 'Want to Read', colorAccent: 'yellow' },
-  { value: 'READING', label: 'Reading', colorAccent: 'purple' },
-  { value: 'COMPLETED', label: 'Completed', colorAccent: 'green' },
-];
+    { value: 'WANT_TO_READ', label: 'Want to Read', colorAccent: 'yellow' },
+    { value: 'READING', label: 'Reading', colorAccent: 'purple' },
+    { value: 'COMPLETED', label: 'Completed', colorAccent: 'green' },
+  ];
+
+interface InteractionPatch {
+  isLiked?: boolean;
+  status?: ReadingStatus | null;
+  likesCountDelta?: number;
+}
 
 interface BookState {
   books: BookWithUserInteraction[];
@@ -20,31 +33,49 @@ interface BookState {
   isLoading: boolean;
   error: string | null;
 
-  setBooks: (payload: PaginatedResponse<BookWithUserInteraction>) => void;
   setCurrentBook: (book: BookDetails | null) => void;
   searchBooks: (params: SearchBooksParams) => Promise<void>;
   fetchUserBooks: (params?: GetUserBooksQueryDto) => Promise<void>;
   fetchBookByOlid: (olid: string) => Promise<void>;
-  patchBookInteraction: (
-    olid: string,
-    patch: { isLiked?: boolean; status?: ReadingStatus | null; likesCountDelta?: number }
-  ) => void;
+  patchBookInteraction: (olid: string, patch: InteractionPatch) => void;
   reset: () => void;
 }
 
-const initialPagination = { page: 1, total: 0, limit: 10 };
+const initialState = {
+  books: [] as BookWithUserInteraction[],
+  currentBook: null as BookDetails | null,
+  pagination: { page: 1, total: 0, limit: 10 },
+  isLoading: false,
+  error: null as string | null,
+};
 
-export const useBookStore = create<BookState>((set, get) => {
-  const loadBooksList = async (
+const applyInteractionPatch = <T extends BookWithUserInteraction>(
+  book: T,
+  olid: string,
+  patch: InteractionPatch
+): T => {
+  if (book.olid !== olid) return book;
+
+  const prev = book.userInteraction ?? { isLiked: false, status: null };
+  const isLiked = patch.isLiked ?? prev.isLiked;
+  const status = patch.status !== undefined ? patch.status : prev.status;
+  const likesCount = book.likesCount + (patch.likesCountDelta ?? 0);
+
+  return {
+    ...book,
+    likesCount,
+    userInteraction: isLiked || status !== null ? { isLiked, status } : undefined,
+  };
+};
+
+export const useBookStore = create<BookState>((set) => {
+  const loadList = async (
     fetcher: () => Promise<PaginatedResponse<BookWithUserInteraction>>
   ) => {
     set({ isLoading: true, error: null });
     try {
-      const data = await fetcher();
-      set({
-        books: data.items,
-        pagination: { page: data.page, total: data.total, limit: data.limit },
-      });
+      const { items, page, total, limit } = await fetcher();
+      set({ books: items, pagination: { page, total, limit } });
     } catch (err) {
       set({ error: err instanceof Error ? err.message : 'Failed to load books' });
     } finally {
@@ -53,69 +84,46 @@ export const useBookStore = create<BookState>((set, get) => {
   };
 
   return {
-    books: [],
-    currentBook: null,
-    pagination: initialPagination,
-    isLoading: false,
-    error: null,
+    ...initialState,
 
-    setBooks: (payload) => {
-      set({
-        books: payload.items,
-        pagination: { page: payload.page, total: payload.total, limit: payload.limit },
-      });
-    },
+    setCurrentBook: (currentBook) => set({ currentBook, error: null, isLoading: false }),
 
-    setCurrentBook: (book) => set({ currentBook: book }),
-
-    searchBooks: (params) => loadBooksList(() => bookApi.search(params)),
+    searchBooks: (params) => loadList(() => bookApi.search(params)),
 
     fetchUserBooks: (params) =>
-      loadBooksList(() =>
-        userBookApi.getUserBooks(params ?? { page: 1, limit: initialPagination.limit })
+      loadList(() =>
+        userBookApi.getUserBooks(params ?? { page: 1, limit: initialState.pagination.limit })
       ),
 
-  fetchBookByOlid: async (olid) => {
-    set({ isLoading: true, error: null });
-    try {
-      const book = await bookApi.getByOlid(olid);
-      set({ currentBook: book });
-    } catch (err) {
-      set({ error: err instanceof Error ? err.message : 'Failed to load book' });
-    } finally {
-      set({ isLoading: false });
-    }
-  },
-
-  patchBookInteraction: (olid, patch) => {
-    const applyPatch = (book: BookWithUserInteraction): BookWithUserInteraction => {
-      if (book.olid !== olid) return book;
-      const prev = book.userInteraction ?? { isLiked: false, status: null };
-      const nextIsLiked = patch.isLiked !== undefined ? patch.isLiked : prev.isLiked;
-      const nextStatus = patch.status !== undefined ? patch.status : prev.status;
-      const nextLikesCount = book.likesCount + (patch.likesCountDelta ?? 0);
-
-      if (!nextIsLiked && nextStatus === null) {
-        return { ...book, likesCount: nextLikesCount, userInteraction: undefined };
+    fetchBookByOlid: async (olid) => {
+      set({ isLoading: true, error: null });
+      try {
+        const currentBook = await bookApi.getByOlid(olid);
+        set({ currentBook });
+      } catch (err) {
+        const apiErr = err as Partial<ApiError>;
+        const isNotFound = apiErr?.status === 404 || apiErr?.code === 'NOT_FOUND';
+        set({
+          currentBook: null,
+          error: isNotFound
+            ? 'NOT_FOUND'
+            : err instanceof Error
+              ? err.message
+              : 'Failed to load book',
+        });
+      } finally {
+        set({ isLoading: false });
       }
-      return {
-        ...book,
-        likesCount: nextLikesCount,
-        userInteraction: { isLiked: nextIsLiked, status: nextStatus },
-      };
-    };
+    },
 
-    const { books, currentBook } = get();
-    const updatedBooks = books.map(applyPatch);
+    patchBookInteraction: (olid, patch) =>
+      set((state) => ({
+        books: state.books.map((book) => applyInteractionPatch(book, olid, patch)),
+        currentBook: state.currentBook
+          ? applyInteractionPatch(state.currentBook, olid, patch)
+          : null,
+      })),
 
-    let updatedCurrentBook = currentBook;
-    if (currentBook && currentBook.olid === olid) {
-      updatedCurrentBook = applyPatch(currentBook) as BookDetails;
-    }
-
-    set({ books: updatedBooks, currentBook: updatedCurrentBook });
-  },
-
-  reset: () => set({ books: [], currentBook: null, pagination: initialPagination, isLoading: false, error: null }),
+    reset: () => set(initialState),
   };
 });

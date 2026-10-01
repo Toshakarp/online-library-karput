@@ -1,4 +1,7 @@
 import { UserProfile } from './user';
+import { CachedBook } from './book';
+
+export type CommentBookInfo = Pick<CachedBook, 'olid' | 'title' | 'authorName' | 'coverUrl'>;
 
 export interface Comment {
   id: string;
@@ -8,6 +11,7 @@ export interface Comment {
   createdAt: string;
   updatedAt: string;
   author?: UserProfile | undefined;
+  book?: CommentBookInfo | undefined;
 }
 
 export interface CreateCommentDto {

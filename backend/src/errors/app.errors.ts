@@ -30,3 +30,9 @@ export class UnauthorizedError extends DomainError {
     super(message, 401, 'UNAUTHORIZED');
   }
 }
+
+export class BadGatewayError extends DomainError {
+  constructor(message = 'Bad Gateway') {
+    super(message, 502, 'BAD_GATEWAY');
+  }
+}

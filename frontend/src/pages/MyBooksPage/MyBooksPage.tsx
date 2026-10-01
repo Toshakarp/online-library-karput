@@ -38,12 +38,14 @@ const MyBooksPage = () => {
     };
   }, [filters, loadBooks, reset]);
 
-  const urlCategory = getQueryParam('category') as FilterState['category'] | null;
+  const urlCategory = (getQueryParam('category') as FilterState['category']) || 'all';
+
   useEffect(() => {
-    if (urlCategory && urlCategory !== filters.category) {
+    if (urlCategory !== filters.category) {
       setFilters((f) => ({ ...f, category: urlCategory }));
+      setPage(1);
     }
-  }, [urlCategory, filters.category]);
+  }, [urlCategory, filters.category, setPage]);
 
   const handleSearch = (q: string) => {
     setQuery(q);
@@ -54,10 +56,8 @@ const MyBooksPage = () => {
   const handleFiltersChange = (newFilters: FilterState) => {
     setFilters(newFilters);
     setPage(1);
-    setQueryParam(
-      'category',
-      newFilters.category && newFilters.category !== 'all' ? newFilters.category : null
-    );
+    const cat = newFilters.category && newFilters.category !== 'all' ? newFilters.category : null;
+    setQueryParam('category', cat);
   };
 
   const handlePageChange = (p: number) => {

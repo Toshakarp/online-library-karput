@@ -1,5 +1,5 @@
 import { BookDetails as BookDetailsType } from 'shared-types';
-import { BookCover } from '@/entities/book';
+import { BookCover } from '@/shared/ui/BookCover/BookCover';
 import { LikeButton } from '@/features/like-book';
 import { StatusDropdown } from '@/features/change-status';
 import styles from './BookDetails.module.scss';

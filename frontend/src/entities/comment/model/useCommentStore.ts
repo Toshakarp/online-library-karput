@@ -8,7 +8,6 @@ interface CommentState {
   isLoading: boolean;
   error: string | null;
 
-  setComments: (payload: PaginatedResponse<Comment>) => void;
   fetchBookComments: (olid: string, params?: PaginationQueryDto) => Promise<void>;
   fetchUserComments: (params?: PaginationQueryDto) => Promise<void>;
   addComment: (comment: Comment) => void;
@@ -17,19 +16,19 @@ interface CommentState {
   reset: () => void;
 }
 
-const initialPagination = { page: 1, total: 0, limit: 10 };
+const initialState = {
+  comments: [] as Comment[],
+  pagination: { page: 1, total: 0, limit: 10 },
+  isLoading: false,
+  error: null as string | null,
+};
 
 export const useCommentStore = create<CommentState>((set) => {
-  const loadCommentsList = async (
-    fetcher: () => Promise<PaginatedResponse<Comment>>
-  ) => {
+  const loadList = async (fetcher: () => Promise<PaginatedResponse<Comment>>) => {
     set({ isLoading: true, error: null });
     try {
-      const data = await fetcher();
-      set({
-        comments: data.items,
-        pagination: { page: data.page, total: data.total, limit: data.limit },
-      });
+      const { items, page, total, limit } = await fetcher();
+      set({ comments: items, pagination: { page, total, limit } });
     } catch (err) {
       set({ error: err instanceof Error ? err.message : 'Failed to load comments' });
     } finally {
@@ -38,34 +37,27 @@ export const useCommentStore = create<CommentState>((set) => {
   };
 
   return {
-    comments: [],
-    pagination: initialPagination,
-    isLoading: false,
-    error: null,
-
-    setComments: (payload) => {
-      set({
-        comments: payload.items,
-        pagination: { page: payload.page, total: payload.total, limit: payload.limit },
-      });
-    },
+    ...initialState,
 
     fetchBookComments: (olid, params) =>
-      loadCommentsList(() => commentApi.getByBook(olid, params)),
+      loadList(() => commentApi.getByBook(olid, params)),
 
     fetchUserComments: (params) =>
-      loadCommentsList(() => commentApi.getByUser(params)),
+      loadList(() => commentApi.getByUser(params)),
 
     addComment: (comment) =>
       set((state) => ({
-        comments: [comment, ...state.comments],
+        comments:
+          state.pagination.page === 1
+            ? [comment, ...state.comments].slice(0, state.pagination.limit)
+            : state.comments,
         pagination: { ...state.pagination, total: state.pagination.total + 1 },
       })),
 
-    patchComment: (id, content, updatedAt) =>
+    patchComment: (id, content, updatedAt = new Date().toISOString()) =>
       set((state) => ({
         comments: state.comments.map((c) =>
-          c.id === id ? { ...c, content, updatedAt: updatedAt ?? new Date().toISOString() } : c
+          c.id === id ? { ...c, content, updatedAt } : c
         ),
       })),
 
@@ -75,6 +67,6 @@ export const useCommentStore = create<CommentState>((set) => {
         pagination: { ...state.pagination, total: Math.max(0, state.pagination.total - 1) },
       })),
 
-    reset: () => set({ comments: [], pagination: initialPagination, isLoading: false, error: null }),
+    reset: () => set(initialState),
   };
 });

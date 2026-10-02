@@ -49,7 +49,7 @@ export const AddCommentForm = ({ book }: AddCommentFormProps) => {
         authorName: book.authorName,
         coverUrl: book.coverUrl ?? undefined,
       });
-      addComment({ ...created, author: user });
+      addComment(created.author ? created : { ...created, author: user });
       setContent('');
       showToast('success', 'Comment added');
     } catch (err) {

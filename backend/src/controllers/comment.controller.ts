@@ -26,7 +26,7 @@ export const commentController = {
     async create(req: Request, res: Response, next: NextFunction) {
         try {
             const data = await commentService.addComment(req.user!.id, req.body);
-            res.json({ success: true, data });
+            res.status(201).json({ success: true, data });
         } catch (error) { next(error); }
     },
 

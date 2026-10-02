@@ -11,7 +11,7 @@ const setLikeSchema = z.object({
     liked: z.boolean(),
     title: z.string(),
     authorName: z.string(),
-    coverUrl: z.string().optional()
+    coverUrl: z.string().nullable().optional()
 });
 
 const setStatusSchema = z.object({
@@ -19,7 +19,7 @@ const setStatusSchema = z.object({
     status: z.enum(['WANT_TO_READ', 'READING', 'COMPLETED']).nullable(),
     title: z.string(),
     authorName: z.string(),
-    coverUrl: z.string().optional()
+    coverUrl: z.string().nullable().optional()
 });
 
 const getUserBooksSchema = z.object({

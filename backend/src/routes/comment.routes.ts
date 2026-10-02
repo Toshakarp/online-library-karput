@@ -11,7 +11,7 @@ const createSchema = z.object({
     content: z.string().min(1),
     title: z.string(),
     authorName: z.string(),
-    coverUrl: z.string().optional()
+    coverUrl: z.string().nullable().optional()
 });
 
 const updateSchema = z.object({

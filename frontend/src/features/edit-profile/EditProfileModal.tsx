@@ -49,20 +49,22 @@ export const EditProfileModal = ({ isOpen, onClose }: EditProfileModalProps) => 
   const onSubmit = async (values: FormValues) => {
     setSaving(true);
     try {
-      const updates: Promise<UserProfile>[] = [];
+      let updatedUser: UserProfile = { ...user, avatarUrl };
+
       if (values.displayName !== user.displayName) {
-        updates.push(profileApi.updateMe({ displayName: values.displayName }));
+        updatedUser = await profileApi.updateMe({ displayName: values.displayName });
+        updateProfile({ ...updatedUser });
       }
+
       if (values.newUsername !== user.username) {
-        updates.push(profileApi.updateUsername({ newUsername: values.newUsername }));
+        updatedUser = await profileApi.updateUsername({ newUsername: values.newUsername });
+        updateProfile({ ...updatedUser });
       }
-      if (updates.length > 0) {
-        const results = await Promise.all(updates);
-        const updatedUser = results[results.length - 1];
-        updateProfile({ ...updatedUser, avatarUrl });
-      } else {
+
+      if (avatarUrl !== user.avatarUrl) {
         updateProfile({ avatarUrl });
       }
+
       showToast('success', 'Profile updated');
       onClose();
     } catch (err) {

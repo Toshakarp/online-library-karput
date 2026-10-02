@@ -17,18 +17,26 @@ export const createApiError = (
     status,
   });
 
-const rawBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000').replace(
+const rawBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? '').replace(
   /\/+$/,
   ''
 );
-const BASE_URL = rawBaseUrl.endsWith('/api') ? rawBaseUrl : `${rawBaseUrl}/api`;
+const BASE_URL = rawBaseUrl
+  ? (rawBaseUrl.endsWith('/api') ? rawBaseUrl : `${rawBaseUrl}/api`)
+  : '/api';
 
 type ErrorHandler = (message: string) => void;
+type UnauthorizedHandler = () => void;
 
 let onGlobalApiError: ErrorHandler | null = null;
+let onUnauthorized: UnauthorizedHandler | null = null;
 
 export const setApiErrorHandler = (fn: ErrorHandler | null) => {
   onGlobalApiError = fn;
+};
+
+export const setUnauthorizedHandler = (fn: UnauthorizedHandler | null) => {
+  onUnauthorized = fn;
 };
 
 export type QueryParams = Record<string, string | number | boolean | undefined | null>;
@@ -121,6 +129,10 @@ const request = async <T>(path: string, config: RequestConfig): Promise<T> => {
   if (!response.ok || !payload?.success) {
     const code = payload?.error?.code ?? 'UNKNOWN_ERROR';
     const message = payload?.error?.message ?? `HTTP ${response.status}`;
+
+    if (response.status === 401) {
+      onUnauthorized?.();
+    }
 
     if (response.status >= 500) {
       onGlobalApiError?.(message);

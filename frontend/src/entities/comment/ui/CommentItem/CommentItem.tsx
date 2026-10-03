@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { memo, type ReactNode } from 'react';
 import { Comment } from 'shared-types';
 import { Avatar } from '@/shared/ui/Avatar/Avatar';
 import { BookCover } from '@/shared/ui/BookCover/BookCover';
@@ -11,7 +11,7 @@ export interface CommentItemProps {
   onClick?: () => void;
 }
 
-export const CommentItem = ({
+export const CommentItem = memo(({
   comment,
   actionsSlot,
   editSlot,
@@ -22,6 +22,7 @@ export const CommentItem = ({
     month: 'short',
     day: 'numeric',
   });
+  const isEdited = Boolean(comment.updatedAt && comment.updatedAt !== comment.createdAt);
 
   const authorName = comment.author?.displayName || comment.author?.username || 'User';
   const book = comment.book;
@@ -39,7 +40,10 @@ export const CommentItem = ({
               <div className={styles.authorInfo}>
                 <span className={styles.authorName}>{book.title}</span>
                 <span className={styles.bookAuthor}>{book.authorName}</span>
-                <span className={styles.date}>{formattedDate}</span>
+                <span className={styles.date}>
+                  {formattedDate}
+                  {isEdited ? ' (edited)' : ''}
+                </span>
               </div>
             </>
           ) : (
@@ -51,11 +55,15 @@ export const CommentItem = ({
               />
               <div className={styles.authorInfo}>
                 <span className={styles.authorName}>{authorName}</span>
-                <span className={styles.date}>{formattedDate}</span>
+                <span className={styles.date}>
+                  {formattedDate}
+                  {isEdited ? ' (edited)' : ''}
+                </span>
               </div>
             </>
           )}
         </div>
+
         {actionsSlot && (
           <div className={styles.actionsSlot} onClick={(e) => e.stopPropagation()}>
             {actionsSlot}
@@ -64,7 +72,9 @@ export const CommentItem = ({
       </div>
 
       {editSlot ? (
-        <div onClick={(e) => e.stopPropagation()}>{editSlot}</div>
+        <div onClick={(e) => e.stopPropagation()}>
+          {editSlot}
+        </div>
       ) : (
         <p
           className={[styles.content, onClick ? styles.clickable : ''].filter(Boolean).join(' ')}
@@ -75,4 +85,6 @@ export const CommentItem = ({
       )}
     </div>
   );
-};
+});
+
+CommentItem.displayName = 'CommentItem';

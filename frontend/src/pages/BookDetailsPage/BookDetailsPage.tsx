@@ -40,7 +40,7 @@ const BookDetailsPage = () => {
       {!isLoading && !error && currentBook && (
         <>
           <BookDetails book={currentBook} />
-          <CommentsSection book={currentBook} />
+          <CommentsSection bookOlid={currentBook.olid} />
         </>
       )}
     </PageContainer>

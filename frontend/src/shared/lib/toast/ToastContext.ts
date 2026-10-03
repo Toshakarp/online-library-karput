@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, use } from 'react';
 
 export type ToastType = 'success' | 'error';
 
@@ -16,7 +16,7 @@ export interface ToastContextValue {
 export const ToastContext = createContext<ToastContextValue | null>(null);
 
 export const useToast = (): ToastContextValue => {
-  const ctx = useContext(ToastContext);
+  const ctx = use(ToastContext);
   if (!ctx) {
     throw new Error('useToast must be used within ToastProvider');
   }

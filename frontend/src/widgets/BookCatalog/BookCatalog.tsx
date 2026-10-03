@@ -1,3 +1,5 @@
+import { memo, useMemo } from 'react';
+import { BookWithUserInteraction } from 'shared-types';
 import { BookCard, BookCardSkeleton, useBookStore } from '@/entities/book';
 import { LikeButton } from '@/features/like-book';
 import { StatusDropdown } from '@/features/change-status';
@@ -16,6 +18,30 @@ export interface BookCatalogProps {
   onPageChange: (page: number) => void;
   onRetry: () => void;
 }
+
+interface CatalogBookItemProps {
+  book: BookWithUserInteraction;
+}
+
+const CatalogBookItem = memo(({ book }: CatalogBookItemProps) => {
+  const actions = useMemo(
+    () => (
+      <>
+        <LikeButton book={book} />
+        <StatusDropdown book={book} />
+      </>
+    ),
+    [book]
+  );
+
+  return (
+    <div className={styles.bookItem}>
+      <BookCard book={book} actionSlot={actions} />
+    </div>
+  );
+});
+
+CatalogBookItem.displayName = 'CatalogBookItem';
 
 export const BookCatalog = ({
   page,
@@ -62,17 +88,7 @@ export const BookCatalog = ({
     <>
       <div className={styles.bookList}>
         {books.map((book) => (
-          <div key={book.olid} className={styles.bookItem}>
-            <BookCard
-              book={book}
-              actionSlot={
-                <>
-                  <LikeButton book={book} />
-                  <StatusDropdown book={book} />
-                </>
-              }
-            />
-          </div>
+          <CatalogBookItem key={book.olid} book={book} />
         ))}
       </div>
       <Pagination

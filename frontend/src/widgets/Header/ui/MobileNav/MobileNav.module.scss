@@ -1,0 +1,48 @@
+@use '../../../../shared/styles/variables' as *;
+@use '../../../../shared/styles/animations';
+
+.mobileContainer {
+  display: none;
+  align-items: center;
+  gap: $space-3;
+
+  @media (max-width: #{$bp-md}) {
+    display: flex;
+  }
+}
+
+.avatarTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.drawer {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: $header-height;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $color-bg-white;
+  padding: $space-5;
+  z-index: $z-sticky;
+  gap: $space-2;
+  border-top: 1px solid $color-border;
+  animation: fadeInDown $transition-base;
+}
+
+.signOutBtn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  color: $color-error;
+  font-family: inherit;
+}

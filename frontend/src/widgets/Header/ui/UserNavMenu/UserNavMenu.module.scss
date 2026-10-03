@@ -1,0 +1,26 @@
+@use '../../../../shared/styles/variables' as *;
+
+.userTriggerWrapper {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: #{$bp-md}) {
+    display: none;
+  }
+}
+
+.avatarTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+  transition: opacity $transition-base;
+
+  &:hover {
+    opacity: 0.85;
+  }
+}

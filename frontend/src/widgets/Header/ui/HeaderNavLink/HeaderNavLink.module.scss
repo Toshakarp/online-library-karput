@@ -1,0 +1,57 @@
+@use '../../../../shared/styles/variables' as *;
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 $space-3;
+  border-radius: $radius-md;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+  text-decoration: none;
+  transition: all $transition-base;
+
+  &:hover {
+    background: $color-bg-surface;
+    color: $color-text-primary;
+  }
+}
+
+.navLinkActive {
+  color: $color-brand;
+  background: $color-brand-light;
+
+  &:hover {
+    background: $color-brand-light;
+    color: $color-brand;
+  }
+}
+
+.mobileNavLink {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-4 $space-5;
+  border-radius: $radius-lg;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+  text-decoration: none;
+  transition: all $transition-base;
+
+  &:hover {
+    background: $color-bg-surface;
+    color: $color-text-primary;
+  }
+}
+
+.mobileNavLinkActive {
+  color: $color-brand;
+  background: $color-brand-light;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+}

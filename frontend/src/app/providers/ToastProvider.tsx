@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, type ReactNode } from 'react';
+import { useState, useCallback, useEffect, useMemo, type ReactNode } from 'react';
 import { setApiErrorHandler } from '@/shared/api/apiClient';
 import { ToastContext, type ToastItem, type ToastType } from '@/shared/lib/toast/ToastContext';
 import { Toast } from '@/shared/ui/Toast/Toast';
@@ -26,10 +26,12 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     return () => setApiErrorHandler(null);
   }, [showToast]);
 
+  const contextValue = useMemo(() => ({ showToast }), [showToast]);
+
   return (
-    <ToastContext.Provider value={{ showToast }}>
+    <ToastContext value={contextValue}>
       {children}
       <Toast toasts={toasts} onDismiss={removeToast} />
-    </ToastContext.Provider>
+    </ToastContext>
   );
 };

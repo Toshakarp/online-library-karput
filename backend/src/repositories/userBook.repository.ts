@@ -2,8 +2,6 @@ import { supabase } from '@/config/supabase.config.js';
 import { mapToUserBookInteraction } from './mappers/index.js';
 import type { UserBookInteraction, GetUserBooksQueryDto, ReadingStatus, BookWithUserInteraction } from 'shared-types';
 
-
-
 const mapToBookWithUserInteraction = (data: any): BookWithUserInteraction => ({
   olid: data.cached_books.olid,
   title: data.cached_books.title,
@@ -58,8 +56,6 @@ export const userBookRepository = {
   },
 
   async findInteractionsByOlids(userId: string, bookOlids: string[]): Promise<Record<string, UserBookInteraction>> {
-    if (bookOlids.length === 0) return {};
-
     const { data, error } = await supabase
       .from('user_books')
       .select('id, user_id, book_olid, is_liked, status, updated_at')
@@ -96,7 +92,10 @@ export const userBookRepository = {
     }
 
     if (query.q) {
-      queryBuilder = queryBuilder.ilike('cached_books.title', `%${query.q}%`);
+      queryBuilder = queryBuilder.or(
+        `title.ilike.%${query.q}%,author_name.ilike.%${query.q}%`,
+        { referencedTable: 'cached_books' }
+      );
     }
 
     queryBuilder = queryBuilder.order('updated_at', { ascending: false });

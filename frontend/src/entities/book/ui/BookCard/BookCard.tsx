@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { memo, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { BookWithUserInteraction } from 'shared-types';
 import { ROUTES } from '@/shared/config/routes';
@@ -10,7 +10,7 @@ interface BookCardProps {
   actionSlot?: ReactNode;
 }
 
-export const BookCard = ({ book, actionSlot }: BookCardProps) => {
+export const BookCard = memo(({ book, actionSlot }: BookCardProps) => {
   const detailsUrl = ROUTES.BOOK_PATH(book.olid);
 
   return (
@@ -33,5 +33,6 @@ export const BookCard = ({ book, actionSlot }: BookCardProps) => {
       </div>
     </article>
   );
-};
+});
 
+BookCard.displayName = 'BookCard';

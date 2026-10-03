@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback, useMemo, memo } from 'react';
 import { Comment } from 'shared-types';
 import { CommentItem, useCommentStore } from '@/entities/comment';
 import { CommentActionsMenu } from '@/features/comment-actions';
@@ -20,6 +20,64 @@ export interface CommentsListProps {
   onRetry: () => void;
 }
 
+interface CommentsListItemProps {
+  comment: Comment;
+  isEditing: boolean;
+  onEditStart: (id: string) => void;
+  onEditEnd: () => void;
+  onCommentClick?: (comment: Comment) => void;
+}
+
+const CommentsListItem = memo(({
+  comment,
+  isEditing,
+  onEditStart,
+  onEditEnd,
+  onCommentClick,
+}: CommentsListItemProps) => {
+  
+  const handleClick = useCallback(() => {
+    onCommentClick?.(comment);
+  }, [onCommentClick, comment]);
+
+  const handleEditStart = useCallback(() => {
+    onEditStart(comment.id);
+  }, [onEditStart, comment.id]);
+
+  const actionsSlot = useMemo(
+    () => (
+      <CommentActionsMenu
+        comment={comment}
+        onEditStart={handleEditStart}
+      />
+    ),
+    [comment, handleEditStart]
+  );
+
+  const editSlot = useMemo(
+    () =>
+      isEditing ? (
+        <EditCommentForm
+          comment={comment}
+          onCancel={onEditEnd}
+          onSuccess={onEditEnd}
+        />
+      ) : undefined,
+    [isEditing, comment, onEditEnd]
+  );
+
+  return (
+    <CommentItem
+      comment={comment}
+      onClick={onCommentClick ? handleClick : undefined}
+      editSlot={editSlot}
+      actionsSlot={actionsSlot}
+    />
+  );
+});
+
+CommentsListItem.displayName = 'CommentsListItem';
+
 export const CommentsList = ({
   page,
   limit,
@@ -35,6 +93,14 @@ export const CommentsList = ({
   const isLoading = useCommentStore((s) => s.isLoading);
   const error = useCommentStore((s) => s.error);
   const [editingId, setEditingId] = useState<string | null>(null);
+
+  const handleEditStart = useCallback((id: string) => {
+    setEditingId(id);
+  }, []);
+
+  const handleEditEnd = useCallback(() => {
+    setEditingId(null);
+  }, []);
 
   if (isLoading) {
     return <Spinner centered />;
@@ -55,25 +121,13 @@ export const CommentsList = ({
       ) : (
         <div className={styles.list}>
           {comments.map((comment) => (
-            <CommentItem
+            <CommentsListItem
               key={comment.id}
               comment={comment}
-              onClick={onCommentClick ? () => onCommentClick(comment) : undefined}
-              editSlot={
-                editingId === comment.id ? (
-                  <EditCommentForm
-                    comment={comment}
-                    onCancel={() => setEditingId(null)}
-                    onSuccess={() => setEditingId(null)}
-                  />
-                ) : undefined
-              }
-              actionsSlot={
-                <CommentActionsMenu
-                  comment={comment}
-                  onEditStart={() => setEditingId(comment.id)}
-                />
-              }
+              isEditing={editingId === comment.id}
+              onEditStart={handleEditStart}
+              onEditEnd={handleEditEnd}
+              onCommentClick={onCommentClick}
             />
           ))}
         </div>

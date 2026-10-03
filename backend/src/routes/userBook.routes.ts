@@ -11,7 +11,7 @@ const setLikeSchema = z.object({
     liked: z.boolean(),
     title: z.string(),
     authorName: z.string(),
-    coverUrl: z.string().optional()
+    coverUrl: z.string().nullable().optional()
 });
 
 const setStatusSchema = z.object({
@@ -19,7 +19,7 @@ const setStatusSchema = z.object({
     status: z.enum(['WANT_TO_READ', 'READING', 'COMPLETED']).nullable(),
     title: z.string(),
     authorName: z.string(),
-    coverUrl: z.string().optional()
+    coverUrl: z.string().nullable().optional()
 });
 
 const getUserBooksSchema = z.object({
@@ -27,8 +27,8 @@ const getUserBooksSchema = z.object({
     category: z.enum(['liked', 'reading_list', 'all']).optional(),
     status: z.enum(['WANT_TO_READ', 'READING', 'COMPLETED']).optional(),
     sort: z.enum(['alpha_asc', 'alpha_desc']).optional(),
-    page: z.string().regex(/^\d+$/).transform(Number),
-    limit: z.string().regex(/^\d+$/).transform(Number)
+    page: z.union([z.string().regex(/^\d+$/).transform(Number), z.number()]).optional().default(1),
+    limit: z.union([z.string().regex(/^\d+$/).transform(Number), z.number()]).optional().default(10)
 });
 
 router.use(authMiddleware);

@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, memo, type FormEvent } from 'react';
 import { Search, X } from 'lucide-react';
 import { Input } from '@/shared/ui/Input/Input';
 import { Button } from '@/shared/ui/Button/Button';
@@ -11,7 +11,7 @@ interface SearchBarProps {
   initialValue?: string;
 }
 
-export const SearchBar = ({
+export const SearchBar = memo(({
   onSearch,
   placeholder = 'Search books by title or author...',
   initialValue = '',
@@ -48,4 +48,6 @@ export const SearchBar = ({
       <Button type="submit">Search</Button>
     </form>
   );
-};
+});
+
+SearchBar.displayName = 'SearchBar';

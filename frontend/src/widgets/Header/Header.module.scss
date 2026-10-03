@@ -1,5 +1,4 @@
 @use '../../shared/styles/variables' as *;
-@use '../../shared/styles/animations';
 
 .header {
   position: sticky;
@@ -14,7 +13,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: $space-5;
   max-width: $max-content-width;
   margin: 0 auto;
   padding: 0 $space-7;
@@ -23,6 +21,12 @@
   @media (max-width: #{$bp-md}) {
     padding: 0 $space-5;
   }
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: $space-8;
 }
 
 .logo {
@@ -45,143 +49,14 @@
   color: $color-bg-white;
 }
 
-.nav {
-  display: flex;
-  align-items: center;
-  gap: $space-2;
-
-  @media (max-width: #{$bp-md}) {
-    display: none;
-  }
-}
-
-.navLink {
-  display: flex;
-  align-items: center;
-  gap: $space-2;
-  padding: $space-2 $space-4;
-  border-radius: $radius-md;
-  font-size: $font-size-base;
-  font-weight: $font-weight-medium;
-  color: $color-text-secondary;
-  text-decoration: none;
-  transition: all $transition-base;
-
-  &:hover {
-    background: $color-bg-surface;
-    color: $color-text-primary;
-  }
-}
-
-.navLinkActive {
-  color: $color-brand;
-  background: $color-brand-light;
-
-  &:hover {
-    background: $color-brand-light;
-    color: $color-brand;
-  }
-}
-
-.actions {
+.rightSection {
   display: flex;
   align-items: center;
   gap: $space-4;
+}
 
+.desktopAuthBtn {
   @media (max-width: #{$bp-md}) {
-    gap: $space-3;
-  }
-}
-
-.userTrigger {
-  display: flex;
-  align-items: center;
-  gap: $space-3;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: $space-2;
-  border-radius: $radius-md;
-  transition: background $transition-base;
-
-  &:hover {
-    background: $color-bg-surface;
-  }
-}
-
-.userName {
-  font-size: $font-size-sm;
-  font-weight: $font-weight-medium;
-  color: $color-text-primary;
-
-  @media (max-width: #{$bp-lg}) {
     display: none;
   }
-}
-
-// Mobile nav
-.hamburger {
-  display: none;
-
-  @media (max-width: #{$bp-md}) {
-    display: flex;
-  }
-}
-
-.mobileNav {
-  display: none;
-
-  @media (max-width: #{$bp-md}) {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: $header-height;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: $color-bg-white;
-    padding: $space-5;
-    z-index: $z-sticky;
-    gap: $space-2;
-    border-top: 1px solid $color-border;
-    animation: fadeInDown $transition-base;
-  }
-}
-
-.mobileNavLink {
-  display: flex;
-  align-items: center;
-  gap: $space-4;
-  padding: $space-4 $space-5;
-  border-radius: $radius-lg;
-  font-size: $font-size-lg;
-  font-weight: $font-weight-medium;
-  color: $color-text-secondary;
-  text-decoration: none;
-  transition: all $transition-base;
-
-  &:hover {
-    background: $color-bg-surface;
-    color: $color-text-primary;
-  }
-}
-
-.mobileNavLinkActive {
-  color: $color-brand;
-  background: $color-brand-light;
-}
-
-.mobileDivider {
-  height: 1px;
-  background: $color-border;
-  margin: $space-3 0;
-}
-
-.signOutBtn {
-  border: none;
-  background: none;
-  cursor: pointer;
-  text-align: left;
-  width: 100%;
-  color: $color-error;
 }

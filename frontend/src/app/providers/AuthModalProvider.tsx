@@ -1,5 +1,5 @@
-import { useState, useCallback, type ReactNode } from 'react';
-import { AuthModalContext } from '@/shared/lib/modal/ModalContext';
+import { useState, useCallback, useMemo, type ReactNode } from 'react';
+import { AuthModalStateContext, AuthModalActionsContext } from '@/shared/lib/modal/ModalContext';
 import { Modal } from '@/shared/ui/Modal/Modal';
 import { AuthForm } from '@/features/auth';
 
@@ -9,12 +9,21 @@ export const AuthModalProvider = ({ children }: { children: ReactNode }) => {
   const openAuthModal = useCallback(() => setIsAuthModalOpen(true), []);
   const closeAuthModal = useCallback(() => setIsAuthModalOpen(false), []);
 
+  const actions = useMemo(
+    () => ({ openAuthModal, closeAuthModal }),
+    [openAuthModal, closeAuthModal]
+  );
+
   return (
-    <AuthModalContext.Provider value={{ isAuthModalOpen, openAuthModal, closeAuthModal }}>
-      {children}
-      <Modal isOpen={isAuthModalOpen} onClose={closeAuthModal}>
-        <AuthForm onSuccess={closeAuthModal} />
-      </Modal>
-    </AuthModalContext.Provider>
+    <AuthModalActionsContext value={actions}>
+      <AuthModalStateContext value={isAuthModalOpen}>
+        {children}
+        {isAuthModalOpen && (
+          <Modal isOpen={isAuthModalOpen} onClose={closeAuthModal}>
+            <AuthForm onSuccess={closeAuthModal} />
+          </Modal>
+        )}
+      </AuthModalStateContext>
+    </AuthModalActionsContext>
   );
 };

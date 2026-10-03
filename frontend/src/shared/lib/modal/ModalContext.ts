@@ -1,17 +1,21 @@
-import { createContext, useContext } from 'react';
+import { createContext, use } from 'react';
 
-export interface AuthModalContextValue {
-  isAuthModalOpen: boolean;
+export interface AuthModalActions {
   openAuthModal: () => void;
   closeAuthModal: () => void;
 }
 
-export const AuthModalContext = createContext<AuthModalContextValue | null>(null);
+export const AuthModalStateContext = createContext<boolean>(false);
+export const AuthModalActionsContext = createContext<AuthModalActions | null>(null);
 
-export const useAuthModal = (): AuthModalContextValue => {
-  const ctx = useContext(AuthModalContext);
+export const useAuthModal = (): AuthModalActions => {
+  const ctx = use(AuthModalActionsContext);
   if (!ctx) {
     throw new Error('useAuthModal must be used within AuthModalProvider');
   }
   return ctx;
+};
+
+export const useAuthModalState = (): boolean => {
+  return use(AuthModalStateContext);
 };

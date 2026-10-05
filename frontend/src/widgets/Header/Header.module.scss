@@ -1,0 +1,62 @@
+@use '../../shared/styles/variables' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  background: $color-bg-white;
+  border-bottom: 1px solid $color-border;
+  height: $header-height;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: $max-content-width;
+  margin: 0 auto;
+  padding: 0 $space-7;
+  height: 100%;
+
+  @media (max-width: #{$bp-md}) {
+    padding: 0 $space-5;
+  }
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: $space-8;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  text-decoration: none;
+  color: $color-text-primary;
+  flex-shrink: 0;
+}
+
+.logoIcon {
+  width: 36px;
+  height: 36px;
+  background: $color-brand;
+  border-radius: $radius-lg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-bg-white;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+}
+
+.desktopAuthBtn {
+  @media (max-width: #{$bp-md}) {
+    display: none;
+  }
+}

@@ -1,0 +1,59 @@
+@use '../../styles/variables' as *;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-6 0;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  width: auto;
+  height: 36px;
+  padding: 0 $space-2;
+  border-radius: $radius-md;
+  border: 1px solid $color-border;
+  background: $color-bg-white;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all $transition-base;
+
+  &:hover:not(:disabled) {
+    border-color: $color-brand;
+    color: $color-brand;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.active {
+  background: $color-brand;
+  border-color: $color-brand;
+  color: $color-bg-white;
+  font-weight: $font-weight-semibold;
+
+  &:hover:not(:disabled) {
+    color: $color-bg-white;
+  }
+}
+
+.ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+}

@@ -1,0 +1,30 @@
+@use '../../shared/styles/variables' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.avatarSection {
+  display: flex;
+  align-items: center;
+  gap: $space-5;
+}
+
+.avatarInfo {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.avatarLabel {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+}
+
+.avatarHint {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+}

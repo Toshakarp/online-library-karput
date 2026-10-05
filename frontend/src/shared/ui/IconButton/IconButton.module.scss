@@ -1,0 +1,64 @@
+@use '../../styles/variables' as *;
+
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-md;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color $transition-base,
+    color $transition-base,
+    transform $transition-fast;
+  flex-shrink: 0;
+
+  &:active:not(:disabled) {
+    transform: scale(0.92);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.sm {
+  width: 28px;
+  height: 28px;
+}
+
+.md {
+  width: 36px;
+  height: 36px;
+}
+
+.lg {
+  width: 44px;
+  height: 44px;
+}
+
+.ghost {
+  background: transparent;
+  color: $color-text-secondary;
+
+  &:hover:not(:disabled) {
+    background: $color-bg-surface;
+    color: $color-text-primary;
+  }
+}

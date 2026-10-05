@@ -1,0 +1,56 @@
+@use '../../shared/styles/variables' as *;
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: $space-8;
+  padding: $space-10 $space-7;
+  background: $color-bg-surface;
+  max-width: $max-content-width;
+  margin: 0 auto;
+  width: 100%;
+
+  @media (max-width: #{$bp-md}) {
+    flex-direction: column;
+    padding: $space-8 $space-5;
+    gap: $space-6;
+  }
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.title {
+  font-size: $font-size-hero;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  line-height: $line-height-tight;
+
+  @media (max-width: #{$bp-md}) {
+    font-size: $font-size-4xl;
+  }
+}
+
+.subtitle {
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
+}
+
+.illustration {
+  flex-shrink: 0;
+  width: 220px;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: #{$bp-md}) {
+    display: none;
+  }
+}

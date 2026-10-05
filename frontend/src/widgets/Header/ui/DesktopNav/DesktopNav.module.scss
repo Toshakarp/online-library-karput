@@ -1,0 +1,11 @@
+@use '../../../../shared/styles/variables' as *;
+
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+
+  @media (max-width: #{$bp-md}) {
+    display: none;
+  }
+}

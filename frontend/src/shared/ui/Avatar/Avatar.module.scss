@@ -1,0 +1,43 @@
+@use '../../styles/variables' as *;
+
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  background: $color-brand-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: $color-brand;
+  font-weight: $font-weight-semibold;
+}
+
+.sm {
+  width: 32px;
+  height: 32px;
+  font-size: $font-size-sm;
+}
+
+.md {
+  width: 40px;
+  height: 40px;
+  font-size: $font-size-base;
+}
+
+.lg {
+  width: 56px;
+  height: 56px;
+  font-size: $font-size-xl;
+}
+
+.xl {
+  width: 80px;
+  height: 80px;
+  font-size: $font-size-3xl;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

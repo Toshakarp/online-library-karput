@@ -1,0 +1,35 @@
+@use '../../styles/variables' as *;
+
+.cover {
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+.placeholder {
+  background: $color-bg-surface;
+  color: $color-text-muted;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.xs {
+  width: 44px;
+  height: 62px;
+  border-radius: $radius-sm;
+}
+
+.sm {
+  width: 100px;
+  height: 140px;
+  border-radius: $radius-md;
+}
+
+.lg {
+  width: 220px;
+  height: 320px;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+}

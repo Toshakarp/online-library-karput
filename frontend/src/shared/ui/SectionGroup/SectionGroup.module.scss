@@ -1,0 +1,21 @@
+@use '../../styles/variables' as *;
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}

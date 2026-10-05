@@ -29,11 +29,11 @@ export const authService = {
   async changePassword(userId: string, dto: ChangePasswordDto): Promise<void> {
     const userWithHash = await userRepository.findById(userId);
     if (!userWithHash) throw new UnauthorizedError('User not found');
-    
+
     const isValid = await passwordUtil.compare(dto.currentPassword, userWithHash.password_hash);
     if (!isValid) throw new ForbiddenError('Invalid current password');
 
     const newHash = await passwordUtil.hash(dto.newPassword);
     await userRepository.updatePasswordHash(userId, newHash);
-  }
+  },
 };

@@ -16,20 +16,12 @@ const ICON_SIZES: Record<NonNullable<BookCoverProps['size']>, number> = {
 export const BookCover = ({ src, title, size = 'sm' }: BookCoverProps) => {
   if (src) {
     return (
-      <img
-        src={src}
-        alt={title}
-        className={`${styles.cover} ${styles[size]}`}
-        loading="lazy"
-      />
+      <img src={src} alt={title} className={`${styles.cover} ${styles[size]}`} loading="lazy" />
     );
   }
 
   return (
-    <div
-      className={`${styles.placeholder} ${styles[size]}`}
-      aria-label={`No cover for ${title}`}
-    >
+    <div className={`${styles.placeholder} ${styles[size]}`} aria-label={`No cover for ${title}`}>
       <BookOpen size={ICON_SIZES[size]} />
     </div>
   );

@@ -51,11 +51,11 @@ export const bookService = {
         likesCount,
         ...(interaction
           ? {
-            userInteraction: {
-              isLiked: interaction.isLiked,
-              status: interaction.status,
-            },
-          }
+              userInteraction: {
+                isLiked: interaction.isLiked,
+                status: interaction.status,
+              },
+            }
           : {}),
       };
     });
@@ -75,11 +75,11 @@ export const bookService = {
       likesCount: cachedBook?.likesCount ?? bookDetails.likesCount ?? 0,
       ...(interaction
         ? {
-          userInteraction: {
-            isLiked: interaction.isLiked,
-            status: interaction.status,
-          },
-        }
+            userInteraction: {
+              isLiked: interaction.isLiked,
+              status: interaction.status,
+            },
+          }
         : {}),
     };
   },

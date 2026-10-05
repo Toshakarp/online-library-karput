@@ -14,14 +14,7 @@ export interface ModalProps {
   footer?: ReactNode;
 }
 
-export const Modal = ({
-  isOpen,
-  onClose,
-  title,
-  size = 'md',
-  children,
-  footer,
-}: ModalProps) => {
+export const Modal = ({ isOpen, onClose, title, size = 'md', children, footer }: ModalProps) => {
   useModalBehavior(isOpen, onClose);
 
   if (!isOpen) return null;
@@ -46,6 +39,6 @@ export const Modal = ({
         {footer && <div className={styles.footer}>{footer}</div>}
       </div>
     </div>,
-    document.body
+    document.body,
   );
 };

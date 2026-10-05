@@ -13,5 +13,5 @@ export const cacheUtil = {
       return cache.set(normalizeKey(key), value, ttlSeconds);
     }
     return cache.set(normalizeKey(key), value);
-  }
+  },
 };

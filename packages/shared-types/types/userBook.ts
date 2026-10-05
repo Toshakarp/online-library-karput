@@ -1,5 +1,5 @@
-import { ReadingStatus } from './status';
-import { PaginationQueryDto } from './api';
+import type { ReadingStatus } from './status';
+import type { PaginationQueryDto } from './api';
 
 export interface SetLikeDto {
   bookOlid: string;

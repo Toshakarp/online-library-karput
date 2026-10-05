@@ -2,7 +2,6 @@ if (typeof (process as any).loadEnvFile === 'function') {
   try {
     (process as any).loadEnvFile();
   } catch (error: any) {
-
     if (error?.code !== 'ENOENT') {
       console.warn(`[Config] Ошибка чтения .env файла: ${error?.message || error}`);
     }
@@ -18,7 +17,6 @@ export interface EnvConfig {
   OPEN_LIBRARY_BASE_URL: string;
   FRONTEND_ORIGIN: string;
 }
-
 
 function getEnv(key: string, defaultValue: string = ''): string {
   const value = process.env[key];

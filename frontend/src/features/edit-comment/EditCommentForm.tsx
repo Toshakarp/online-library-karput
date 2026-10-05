@@ -11,19 +11,11 @@ export interface EditCommentFormProps {
   onSuccess?: () => void;
 }
 
-export const EditCommentForm = memo(({
-  comment,
-  onCancel,
-  onSuccess,
-}: EditCommentFormProps) => {
-  
-  const {
-    textareaRef,
-    hasText,
-    saving,
-    handleChange,
-    handleSubmit,
-  } = useEditCommentForm({ comment, onSuccess });
+export const EditCommentForm = memo(({ comment, onCancel, onSuccess }: EditCommentFormProps) => {
+  const { textareaRef, hasText, saving, handleChange, handleSubmit } = useEditCommentForm({
+    comment,
+    onSuccess,
+  });
 
   return (
     <form className={styles.editArea} onSubmit={handleSubmit}>
@@ -35,20 +27,10 @@ export const EditCommentForm = memo(({
         autoFocus
       />
       <div className={styles.editActions}>
-        <Button
-          type="submit"
-          size="sm"
-          isLoading={saving}
-          disabled={!hasText}
-        >
+        <Button type="submit" size="sm" isLoading={saving} disabled={!hasText}>
           {saving ? 'Saving…' : 'Save'}
         </Button>
-        <Button
-          type="button"
-          variant="secondary"
-          size="sm"
-          onClick={onCancel}
-        >
+        <Button type="button" variant="secondary" size="sm" onClick={onCancel}>
           Cancel
         </Button>
       </div>

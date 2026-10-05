@@ -23,12 +23,7 @@ export const IconPillButton = ({
   ...props
 }: IconPillButtonProps) => {
   const accentClass = styles[`accent${colorAccent.charAt(0).toUpperCase() + colorAccent.slice(1)}`];
-  const classes = [
-    styles.pillButton,
-    styles[size],
-    accentClass,
-    className ?? '',
-  ]
+  const classes = [styles.pillButton, styles[size], accentClass, className ?? '']
     .filter(Boolean)
     .join(' ');
 

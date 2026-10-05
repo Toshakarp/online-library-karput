@@ -2,7 +2,12 @@ import type { Request, Response, NextFunction } from 'express';
 import { DomainError } from '@/errors/app.errors.js';
 import type { ApiResponse } from 'shared-types';
 
-export const errorMiddleware = (err: Error, req: Request, res: Response<ApiResponse<null>>, next: NextFunction) => {
+export const errorMiddleware = (
+  err: Error,
+  req: Request,
+  res: Response<ApiResponse<null>>,
+  next: NextFunction,
+) => {
   console.error(err);
 
   if (err instanceof DomainError) {
@@ -10,8 +15,8 @@ export const errorMiddleware = (err: Error, req: Request, res: Response<ApiRespo
       success: false,
       error: {
         code: err.code,
-        message: err.message
-      }
+        message: err.message,
+      },
     });
     return;
   }
@@ -21,8 +26,8 @@ export const errorMiddleware = (err: Error, req: Request, res: Response<ApiRespo
       success: false,
       error: {
         code: 'CONFLICT',
-        message: 'Resource already exists'
-      }
+        message: 'Resource already exists',
+      },
     });
     return;
   }
@@ -31,7 +36,7 @@ export const errorMiddleware = (err: Error, req: Request, res: Response<ApiRespo
     success: false,
     error: {
       code: 'INTERNAL_SERVER_ERROR',
-      message: 'An unexpected error occurred'
-    }
+      message: 'An unexpected error occurred',
+    },
   });
 };

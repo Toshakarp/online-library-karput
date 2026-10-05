@@ -3,7 +3,6 @@ import { useBookStore } from '@/entities/book';
 import { usePagination } from '@/shared/lib/hooks/usePagination';
 
 export const useHomePage = () => {
-    
   const books = useBookStore((s) => s.books);
   const isLoading = useBookStore((s) => s.isLoading);
   const searchBooks = useBookStore((s) => s.searchBooks);
@@ -20,23 +19,29 @@ export const useHomePage = () => {
     };
   }, [reset]);
 
-  const handleSearch = useCallback((q: string) => {
-    const trimmed = q.trim();
-    setQuery(trimmed);
-    setPage(1);
-    if (!trimmed) {
-      setHasSearched(false);
-      reset();
-      return;
-    }
-    setHasSearched(true);
-    searchBooks({ q: trimmed, page: 1, limit });
-  }, [limit, reset, searchBooks, setPage]);
+  const handleSearch = useCallback(
+    (q: string) => {
+      const trimmed = q.trim();
+      setQuery(trimmed);
+      setPage(1);
+      if (!trimmed) {
+        setHasSearched(false);
+        reset();
+        return;
+      }
+      setHasSearched(true);
+      searchBooks({ q: trimmed, page: 1, limit });
+    },
+    [limit, reset, searchBooks, setPage],
+  );
 
-  const handlePageChange = useCallback((p: number) => {
-    setPage(p);
-    searchBooks({ q: query || undefined, page: p, limit });
-  }, [limit, query, searchBooks, setPage]);
+  const handlePageChange = useCallback(
+    (p: number) => {
+      setPage(p);
+      searchBooks({ q: query || undefined, page: p, limit });
+    },
+    [limit, query, searchBooks, setPage],
+  );
 
   const handleRetry = useCallback(() => {
     if (query) {

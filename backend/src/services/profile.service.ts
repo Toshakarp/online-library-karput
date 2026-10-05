@@ -16,7 +16,7 @@ export const profileService = {
       try {
         await storageService.deleteAvatar(userId);
       } catch (err) {
-        console.error('Error updating profile')
+        console.error('Error updating profile');
       }
     }
     return await userRepository.updateProfile(userId, dto);
@@ -26,9 +26,12 @@ export const profileService = {
     return await userRepository.updateUsername(userId, dto.newUsername);
   },
 
-  async uploadAvatar(userId: string, file: Express.Multer.File | { buffer: Buffer; mimetype: string }): Promise<{ avatarUrl: string }> {
+  async uploadAvatar(
+    userId: string,
+    file: Express.Multer.File | { buffer: Buffer; mimetype: string },
+  ): Promise<{ avatarUrl: string }> {
     const avatarUrl = await storageService.uploadAvatar(userId, file.buffer, file.mimetype);
     await userRepository.updateProfile(userId, { avatarUrl });
     return { avatarUrl };
-  }
+  },
 };

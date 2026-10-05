@@ -4,7 +4,7 @@ import { NotFoundError, ConflictError } from '@/errors/app.errors.js';
 import { mapToUserProfile } from './mappers/index.js';
 
 export const userRepository = {
-  async findById(id: string): Promise<UserProfile & { password_hash: string } | null> {
+  async findById(id: string): Promise<(UserProfile & { password_hash: string }) | null> {
     const { data, error } = await supabase
       .from('users')
       .select('id, username, display_name, avatar_url, created_at, updated_at, password_hash')
@@ -13,11 +13,13 @@ export const userRepository = {
     if (error || !data) return null;
     return {
       ...mapToUserProfile(data),
-      password_hash: data.password_hash
+      password_hash: data.password_hash,
     };
   },
 
-  async findByUsername(username: string): Promise<UserProfile & { password_hash: string } | null> {
+  async findByUsername(
+    username: string,
+  ): Promise<(UserProfile & { password_hash: string }) | null> {
     const { data, error } = await supabase
       .from('users')
       .select('id, username, display_name, avatar_url, created_at, updated_at, password_hash')
@@ -26,14 +28,18 @@ export const userRepository = {
     if (error || !data) return null;
     return {
       ...mapToUserProfile(data),
-      password_hash: data.password_hash
+      password_hash: data.password_hash,
     };
   },
 
   async create(dto: { username: string; passwordHash: string }): Promise<UserProfile> {
     const { data, error } = await supabase
       .from('users')
-      .insert({ username: dto.username, password_hash: dto.passwordHash, display_name: dto.username })
+      .insert({
+        username: dto.username,
+        password_hash: dto.passwordHash,
+        display_name: dto.username,
+      })
       .select('id, username, display_name, avatar_url, created_at, updated_at')
       .single();
     if (error) {
@@ -79,5 +85,5 @@ export const userRepository = {
       .update({ password_hash: hash, updated_at: new Date().toISOString() })
       .eq('id', id);
     if (error) throw error;
-  }
+  },
 };

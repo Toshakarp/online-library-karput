@@ -17,9 +17,7 @@ export const BookDetails = ({ book }: BookDetailsProps) => {
       <div className={styles.content}>
         <h1 className={styles.title}>{book.title}</h1>
         <p className={styles.author}>{book.authorName}</p>
-        {book.description && (
-          <p className={styles.description}>{book.description}</p>
-        )}
+        {book.description && <p className={styles.description}>{book.description}</p>}
         <div className={styles.actions}>
           <LikeButton book={book} variant="labeled" />
           <StatusDropdown book={book} />

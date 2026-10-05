@@ -6,11 +6,7 @@ interface SpinnerProps {
   centered?: boolean;
 }
 
-export const Spinner = ({
-  size = 'md',
-  color = 'primary',
-  centered = false,
-}: SpinnerProps) => {
+export const Spinner = ({ size = 'md', color = 'primary', centered = false }: SpinnerProps) => {
   const inner = (
     <span className={[styles.spinner, styles[size], styles[color]].join(' ')}>
       <span className={styles.ring} />

@@ -27,7 +27,12 @@ export const EditProfileModal = ({ isOpen, onClose }: EditProfileModalProps) => 
   const [avatarUrl, setAvatarUrl] = useState(user?.avatarUrl ?? null);
   const [saving, setSaving] = useState(false);
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>({
     defaultValues: {
       displayName: user?.displayName ?? '',
       newUsername: user?.username ?? '',
@@ -82,8 +87,12 @@ export const EditProfileModal = ({ isOpen, onClose }: EditProfileModalProps) => 
       title="Edit Profile"
       footer={
         <>
-          <Button variant="secondary" onClick={onClose}>Cancel</Button>
-          <Button form="edit-profile-form" type="submit" isLoading={saving}>Save changes</Button>
+          <Button variant="secondary" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button form="edit-profile-form" type="submit" isLoading={saving}>
+            Save changes
+          </Button>
         </>
       }
     >

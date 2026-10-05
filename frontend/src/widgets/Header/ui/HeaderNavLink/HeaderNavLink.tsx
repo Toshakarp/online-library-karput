@@ -13,7 +13,7 @@ export const HeaderNavLink = memo(({ item, variant = 'desktop', onClick }: Heade
   const isMobile = variant === 'mobile';
   const baseClass = isMobile ? styles.mobileNavLink : styles.navLink;
   const activeClass = isMobile ? styles.mobileNavLinkActive : styles.navLinkActive;
-  
+
   const location = useLocation();
   const Icon = item.icon;
 

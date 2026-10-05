@@ -38,5 +38,5 @@ export const Toast = ({ toasts, onDismiss }: ToastProps) =>
         </div>
       ))}
     </div>,
-    document.body
+    document.body,
   );

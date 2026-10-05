@@ -16,23 +16,13 @@ export const IconButton = ({
   type = 'button',
   ...props
 }: IconButtonProps) => {
-  const classes = [
-    styles.iconButton,
-    styles.ghost,
-    styles[size],
-    className ?? '',
-  ].filter(Boolean).join(' ');
+  const classes = [styles.iconButton, styles.ghost, styles[size], className ?? '']
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <button
-      type={type}
-      className={styles.wrapper}
-      aria-label={label}
-      {...props}
-    >
-      <span className={classes}>
-        {children}
-      </span>
+    <button type={type} className={styles.wrapper} aria-label={label} {...props}>
+      <span className={classes}>{children}</span>
     </button>
   );
 };

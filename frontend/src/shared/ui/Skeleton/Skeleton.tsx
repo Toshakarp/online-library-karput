@@ -7,12 +7,7 @@ interface SkeletonProps {
   className?: string;
 }
 
-export const Skeleton = ({
-  width,
-  height,
-  variant = 'rect',
-  className,
-}: SkeletonProps) => {
+export const Skeleton = ({ width, height, variant = 'rect', className }: SkeletonProps) => {
   const variantClass = variant !== 'rect' ? styles[variant] : '';
 
   return (

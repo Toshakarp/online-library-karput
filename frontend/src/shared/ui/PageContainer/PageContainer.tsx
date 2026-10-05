@@ -7,7 +7,5 @@ export interface PageContainerProps {
 }
 
 export const PageContainer = ({ size = 'lg', children }: PageContainerProps) => (
-  <div className={[styles.container, styles[size]].join(' ')}>
-    {children}
-  </div>
+  <div className={[styles.container, styles[size]].join(' ')}>{children}</div>
 );

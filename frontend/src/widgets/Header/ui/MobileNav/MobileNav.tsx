@@ -53,11 +53,7 @@ export const MobileNav = memo(({ user, isAuthenticated }: MobileNavProps) => {
         </button>
       )}
 
-      <IconButton
-        label={isOpen ? 'Close menu' : 'Open menu'}
-        size="md"
-        onClick={toggleMenu}
-      >
+      <IconButton label={isOpen ? 'Close menu' : 'Open menu'} size="md" onClick={toggleMenu}>
         {isOpen ? <X size={20} /> : <Menu size={20} />}
       </IconButton>
 
@@ -74,30 +70,25 @@ export const MobileNav = memo(({ user, isAuthenticated }: MobileNavProps) => {
                     className={`${linkStyles.mobileNavLink} ${styles.signOutBtn}`}
                     onClick={handleSignOut}
                   >
-                    <span className={linkStyles.icon}><Icon size={20} /></span>
+                    <span className={linkStyles.icon}>
+                      <Icon size={20} />
+                    </span>
                     <span>{item.label}</span>
                   </button>
                 );
               }
 
               return (
-                <HeaderNavLink
-                  key={item.id}
-                  item={item}
-                  variant="mobile"
-                  onClick={closeMenu}
-                />
+                <HeaderNavLink key={item.id} item={item} variant="mobile" onClick={closeMenu} />
               );
             })
           ) : (
             <>
               <HeaderNavLink item={NAV_ITEMS.HOME} variant="mobile" onClick={closeMenu} />
-              <button
-                type="button"
-                className={linkStyles.mobileNavLink}
-                onClick={handleSignIn}
-              >
-                <span className={linkStyles.icon}><UserIcon size={20} /></span>
+              <button type="button" className={linkStyles.mobileNavLink} onClick={handleSignIn}>
+                <span className={linkStyles.icon}>
+                  <UserIcon size={20} />
+                </span>
                 <span>Sign in</span>
               </button>
             </>

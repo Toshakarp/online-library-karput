@@ -18,16 +18,16 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api', routes);
 
 app.get('/', (req, res) => {
-    res.redirect('/api/docs');
+  res.redirect('/api/docs');
 });
 
 if (process.env.NODE_ENV === 'production') {
-    const frontendPath = path.join(__dirname, '../../frontend/dist');
-    app.use(express.static(frontendPath));
-    app.get('*', (req, res, next) => {
-        if (req.path.startsWith('/api')) return next();
-        res.sendFile(path.join(frontendPath, 'index.html'));
-    });
+  const frontendPath = path.join(__dirname, '../../frontend/dist');
+  app.use(express.static(frontendPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(frontendPath, 'index.html'));
+  });
 }
 
 app.use(errorMiddleware);

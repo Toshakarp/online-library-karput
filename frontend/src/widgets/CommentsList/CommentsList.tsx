@@ -28,53 +28,39 @@ interface CommentsListItemProps {
   onCommentClick?: (comment: Comment) => void;
 }
 
-const CommentsListItem = memo(({
-  comment,
-  isEditing,
-  onEditStart,
-  onEditEnd,
-  onCommentClick,
-}: CommentsListItemProps) => {
-  
-  const handleClick = useCallback(() => {
-    onCommentClick?.(comment);
-  }, [onCommentClick, comment]);
+const CommentsListItem = memo(
+  ({ comment, isEditing, onEditStart, onEditEnd, onCommentClick }: CommentsListItemProps) => {
+    const handleClick = useCallback(() => {
+      onCommentClick?.(comment);
+    }, [onCommentClick, comment]);
 
-  const handleEditStart = useCallback(() => {
-    onEditStart(comment.id);
-  }, [onEditStart, comment.id]);
+    const handleEditStart = useCallback(() => {
+      onEditStart(comment.id);
+    }, [onEditStart, comment.id]);
 
-  const actionsSlot = useMemo(
-    () => (
-      <CommentActionsMenu
+    const actionsSlot = useMemo(
+      () => <CommentActionsMenu comment={comment} onEditStart={handleEditStart} />,
+      [comment, handleEditStart],
+    );
+
+    const editSlot = useMemo(
+      () =>
+        isEditing ? (
+          <EditCommentForm comment={comment} onCancel={onEditEnd} onSuccess={onEditEnd} />
+        ) : undefined,
+      [isEditing, comment, onEditEnd],
+    );
+
+    return (
+      <CommentItem
         comment={comment}
-        onEditStart={handleEditStart}
+        onClick={onCommentClick ? handleClick : undefined}
+        editSlot={editSlot}
+        actionsSlot={actionsSlot}
       />
-    ),
-    [comment, handleEditStart]
-  );
-
-  const editSlot = useMemo(
-    () =>
-      isEditing ? (
-        <EditCommentForm
-          comment={comment}
-          onCancel={onEditEnd}
-          onSuccess={onEditEnd}
-        />
-      ) : undefined,
-    [isEditing, comment, onEditEnd]
-  );
-
-  return (
-    <CommentItem
-      comment={comment}
-      onClick={onCommentClick ? handleClick : undefined}
-      editSlot={editSlot}
-      actionsSlot={actionsSlot}
-    />
-  );
-});
+    );
+  },
+);
 
 CommentsListItem.displayName = 'CommentsListItem';
 
@@ -132,12 +118,7 @@ export const CommentsList = ({
           ))}
         </div>
       )}
-      <Pagination
-        page={page}
-        total={pagination.total}
-        limit={limit}
-        onPageChange={onPageChange}
-      />
+      <Pagination page={page} total={pagination.total} limit={limit} onPageChange={onPageChange} />
     </>
   );
 };

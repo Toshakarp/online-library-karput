@@ -22,14 +22,16 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         <textarea
           ref={ref}
           id={textareaId}
-          className={[styles.textarea, error ? styles.error : '', className ?? ''].filter(Boolean).join(' ')}
+          className={[styles.textarea, error ? styles.error : '', className ?? '']
+            .filter(Boolean)
+            .join(' ')}
           aria-invalid={!!error}
           {...props}
         />
         {error && <span className={styles.errorText}>{error}</span>}
       </div>
     );
-  }
+  },
 );
 
 Textarea.displayName = 'Textarea';

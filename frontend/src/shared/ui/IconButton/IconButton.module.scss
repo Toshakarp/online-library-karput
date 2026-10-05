@@ -22,7 +22,10 @@
   border-radius: $radius-md;
   border: none;
   cursor: pointer;
-  transition: background-color $transition-base, color $transition-base, transform $transition-fast;
+  transition:
+    background-color $transition-base,
+    color $transition-base,
+    transform $transition-fast;
   flex-shrink: 0;
 
   &:active:not(:disabled) {

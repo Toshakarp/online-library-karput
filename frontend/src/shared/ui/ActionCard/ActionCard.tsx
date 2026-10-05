@@ -23,9 +23,7 @@ export const ActionCard = ({
 
   return (
     <button type="button" className={styles.actionCard} onClick={onClick}>
-      <div className={[styles.iconWrap, iconBgClass].join(' ')}>
-        {icon}
-      </div>
+      <div className={[styles.iconWrap, iconBgClass].join(' ')}>{icon}</div>
       <div className={styles.actionInfo}>
         <span className={styles.actionTitle}>{title}</span>
         {description && <span className={styles.actionDesc}>{description}</span>}

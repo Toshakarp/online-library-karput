@@ -15,10 +15,10 @@ export const READING_STATUS_OPTIONS: {
   label: string;
   colorAccent: 'yellow' | 'purple' | 'green';
 }[] = [
-    { value: 'WANT_TO_READ', label: 'Want to Read', colorAccent: 'yellow' },
-    { value: 'READING', label: 'Reading', colorAccent: 'purple' },
-    { value: 'COMPLETED', label: 'Completed', colorAccent: 'green' },
-  ];
+  { value: 'WANT_TO_READ', label: 'Want to Read', colorAccent: 'yellow' },
+  { value: 'READING', label: 'Reading', colorAccent: 'purple' },
+  { value: 'COMPLETED', label: 'Completed', colorAccent: 'green' },
+];
 
 interface InteractionPatch {
   isLiked?: boolean;
@@ -52,7 +52,7 @@ const initialState = {
 const applyInteractionPatch = <T extends BookWithUserInteraction>(
   book: T,
   olid: string,
-  patch: InteractionPatch
+  patch: InteractionPatch,
 ): T => {
   if (book.olid !== olid) return book;
 
@@ -69,9 +69,7 @@ const applyInteractionPatch = <T extends BookWithUserInteraction>(
 };
 
 export const useBookStore = create<BookState>((set) => {
-  const loadList = async (
-    fetcher: () => Promise<PaginatedResponse<BookWithUserInteraction>>
-  ) => {
+  const loadList = async (fetcher: () => Promise<PaginatedResponse<BookWithUserInteraction>>) => {
     set({ isLoading: true, error: null });
     try {
       const { items, page, total, limit } = await fetcher();
@@ -92,7 +90,7 @@ export const useBookStore = create<BookState>((set) => {
 
     fetchUserBooks: (params) =>
       loadList(() =>
-        userBookApi.getUserBooks(params ?? { page: 1, limit: initialState.pagination.limit })
+        userBookApi.getUserBooks(params ?? { page: 1, limit: initialState.pagination.limit }),
       ),
 
     fetchBookByOlid: async (olid) => {

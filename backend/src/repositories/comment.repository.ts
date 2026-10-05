@@ -3,9 +3,9 @@ import { mapToUserProfile } from './mappers/index.js';
 import type { CreateCommentDto, Comment } from 'shared-types';
 import { mapToComment } from './mappers/index.js';
 
-const COMMENT_USER_SELECT = '*, users (id, username, display_name, avatar_url, created_at, updated_at)';
+const COMMENT_USER_SELECT =
+  '*, users (id, username, display_name, avatar_url, created_at, updated_at)';
 const COMMENT_BOOK_SELECT = '*, cached_books (olid, title, author_name, cover_url)';
-
 
 export const commentRepository = {
   async create(userId: string, dto: CreateCommentDto): Promise<Comment> {
@@ -18,7 +18,11 @@ export const commentRepository = {
     return mapToComment(data);
   },
 
-  async findByBookOlid(olid: string, page: number, limit: number): Promise<{ items: Comment[], total: number }> {
+  async findByBookOlid(
+    olid: string,
+    page: number,
+    limit: number,
+  ): Promise<{ items: Comment[]; total: number }> {
     const offset = (page - 1) * limit;
     const { data, error, count } = await supabase
       .from('comments')
@@ -32,7 +36,11 @@ export const commentRepository = {
     return { items, total: count || 0 };
   },
 
-  async findByUserId(userId: string, page: number, limit: number): Promise<{ items: Comment[], total: number }> {
+  async findByUserId(
+    userId: string,
+    page: number,
+    limit: number,
+  ): Promise<{ items: Comment[]; total: number }> {
     const offset = (page - 1) * limit;
     const { data, error, count } = await supabase
       .from('comments')
@@ -73,8 +81,12 @@ export const commentRepository = {
   },
 
   async findOwnerId(id: string): Promise<string | null> {
-    const { data, error } = await supabase.from('comments').select('user_id').eq('id', id).maybeSingle();
+    const { data, error } = await supabase
+      .from('comments')
+      .select('user_id')
+      .eq('id', id)
+      .maybeSingle();
     if (error || !data) return null;
     return data.user_id;
-  }
+  },
 };

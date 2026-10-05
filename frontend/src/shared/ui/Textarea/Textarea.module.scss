@@ -30,7 +30,9 @@
   padding: $space-4;
   resize: vertical;
   line-height: $line-height-normal;
-  transition: border-color $transition-base, box-shadow $transition-base;
+  transition:
+    border-color $transition-base,
+    box-shadow $transition-base;
 
   &::placeholder {
     color: $color-text-muted;

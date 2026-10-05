@@ -8,5 +8,5 @@ export const jwtUtil = {
 
   verify(token: string): { userId: string } {
     return jwt.verify(token, env.JWT_SECRET) as { userId: string };
-  }
+  },
 };

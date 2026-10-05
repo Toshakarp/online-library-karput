@@ -30,17 +30,17 @@ export const Button = ({
     styles[size],
     fullWidth ? styles.fullWidth : '',
     className ?? '',
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <button
-      className={classes}
-      disabled={disabled || isLoading}
-      {...props}
-    >
+    <button className={classes} disabled={disabled || isLoading} {...props}>
       {isLoading ? (
         <Spinner size="sm" color={variant === 'primary' ? 'white' : 'primary'} />
-      ) : leftIcon}
+      ) : (
+        leftIcon
+      )}
       {children}
     </button>
   );

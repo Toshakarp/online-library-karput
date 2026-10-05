@@ -9,5 +9,5 @@ export const passwordUtil = {
 
   async compare(password: string, hash: string): Promise<boolean> {
     return bcrypt.compare(password, hash);
-  }
+  },
 };

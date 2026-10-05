@@ -29,6 +29,7 @@ const AuthPage = () => {
       <div className={styles.illustrationPanel}>
         <EmptyState
           illustrationSrc={authIllustration}
+          illustrationSize="lg"
           title="Your personal library"
           description="Track what you read, discover new books, and share your thoughts with fellow readers."
         />

@@ -11,7 +11,11 @@
   font-weight: $font-weight-semibold;
   cursor: pointer;
   border: none;
-  transition: background-color $transition-base, color $transition-base, opacity $transition-base, transform $transition-fast;
+  transition:
+    background-color $transition-base,
+    color $transition-base,
+    opacity $transition-base,
+    transform $transition-fast;
   white-space: nowrap;
   user-select: none;
   line-height: 1;
@@ -89,4 +93,3 @@
 .fullWidth {
   width: 100%;
 }
-

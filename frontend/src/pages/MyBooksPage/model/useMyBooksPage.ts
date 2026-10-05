@@ -6,7 +6,7 @@ import { useQueryParams } from '@/shared/lib/hooks/useQueryParams';
 
 export const useMyBooksPage = () => {
   const { get: getQueryParam, set: setQueryParam } = useQueryParams();
-  
+
   const total = useBookStore((s) => s.pagination.total);
   const fetchUserBooks = useBookStore((s) => s.fetchUserBooks);
   const reset = useBookStore((s) => s.reset);
@@ -27,7 +27,7 @@ export const useMyBooksPage = () => {
         page: p,
         limit,
       }),
-    [limit, fetchUserBooks]
+    [limit, fetchUserBooks],
   );
 
   useEffect(() => {
@@ -46,23 +46,32 @@ export const useMyBooksPage = () => {
     }
   }, [urlCategory, filters.category, setPage]);
 
-  const handleSearch = useCallback((q: string) => {
-    setQuery(q);
-    setPage(1);
-    loadBooks(q, 1, filters);
-  }, [filters, loadBooks, setPage]);
+  const handleSearch = useCallback(
+    (q: string) => {
+      setQuery(q);
+      setPage(1);
+      loadBooks(q, 1, filters);
+    },
+    [filters, loadBooks, setPage],
+  );
 
-  const handleFiltersChange = useCallback((newFilters: FilterState) => {
-    setFilters(newFilters);
-    setPage(1);
-    const cat = newFilters.category && newFilters.category !== 'all' ? newFilters.category : null;
-    setQueryParam('category', cat);
-  }, [setPage, setQueryParam]);
+  const handleFiltersChange = useCallback(
+    (newFilters: FilterState) => {
+      setFilters(newFilters);
+      setPage(1);
+      const cat = newFilters.category && newFilters.category !== 'all' ? newFilters.category : null;
+      setQueryParam('category', cat);
+    },
+    [setPage, setQueryParam],
+  );
 
-  const handlePageChange = useCallback((p: number) => {
-    setPage(p);
-    loadBooks(query, p, filters);
-  }, [filters, loadBooks, query, setPage]);
+  const handlePageChange = useCallback(
+    (p: number) => {
+      setPage(p);
+      loadBooks(query, p, filters);
+    },
+    [filters, loadBooks, query, setPage],
+  );
 
   const handleRetry = useCallback(() => {
     loadBooks(query, page, filters);

@@ -50,9 +50,7 @@ export const LikeButton = ({ book, variant = 'icon' }: LikeButtonProps) => {
   };
 
   const labelText =
-    variant === 'labeled'
-      ? `${isLiked ? 'Liked' : 'Like'} (${book.likesCount})`
-      : book.likesCount;
+    variant === 'labeled' ? `${isLiked ? 'Liked' : 'Like'} (${book.likesCount})` : book.likesCount;
 
   return (
     <IconPillButton
@@ -65,4 +63,3 @@ export const LikeButton = ({ book, variant = 'icon' }: LikeButtonProps) => {
     </IconPillButton>
   );
 };
-

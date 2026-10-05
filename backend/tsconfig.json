@@ -15,10 +15,11 @@
     // "types": ["node"],
     // and npm install -D @types/node
 
-    // Other Outputs
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "sourceMap": false,
+    "declaration": false,
+    "declarationMap": false,
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
@@ -42,6 +43,6 @@
     "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"]
-    },
+    }
   }
 }

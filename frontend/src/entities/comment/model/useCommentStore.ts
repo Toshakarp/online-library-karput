@@ -39,11 +39,9 @@ export const useCommentStore = create<CommentState>((set) => {
   return {
     ...initialState,
 
-    fetchBookComments: (olid, params) =>
-      loadList(() => commentApi.getByBook(olid, params)),
+    fetchBookComments: (olid, params) => loadList(() => commentApi.getByBook(olid, params)),
 
-    fetchUserComments: (params) =>
-      loadList(() => commentApi.getByUser(params)),
+    fetchUserComments: (params) => loadList(() => commentApi.getByUser(params)),
 
     addComment: (comment) =>
       set((state) => ({
@@ -56,9 +54,7 @@ export const useCommentStore = create<CommentState>((set) => {
 
     patchComment: (id, content, updatedAt = new Date().toISOString()) =>
       set((state) => ({
-        comments: state.comments.map((c) =>
-          c.id === id ? { ...c, content, updatedAt } : c
-        ),
+        comments: state.comments.map((c) => (c.id === id ? { ...c, content, updatedAt } : c)),
       })),
 
     removeComment: (id) =>

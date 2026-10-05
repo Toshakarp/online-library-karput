@@ -8,15 +8,8 @@ import illustration1 from '@/assets/illustration1.svg';
 import { useHomePage } from './model/useHomePage';
 
 export const HomePage = () => {
-  const {
-    page,
-    limit,
-    query,
-    showInitialWelcome,
-    handleSearch,
-    handlePageChange,
-    handleRetry,
-  } = useHomePage();
+  const { page, limit, query, showInitialWelcome, handleSearch, handlePageChange, handleRetry } =
+    useHomePage();
 
   return (
     <>

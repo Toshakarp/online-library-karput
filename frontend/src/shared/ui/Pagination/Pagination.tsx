@@ -9,12 +9,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-export const Pagination = ({
-  page,
-  total,
-  limit,
-  onPageChange,
-}: PaginationProps) => {
+export const Pagination = ({ page, total, limit, onPageChange }: PaginationProps) => {
   const totalPages = Math.ceil(total / limit);
   if (totalPages <= 1) return null;
 
@@ -44,7 +39,9 @@ export const Pagination = ({
 
       {pages.map((p, i) =>
         p === '...' ? (
-          <span key={`e-${i}`} className={styles.ellipsis}>…</span>
+          <span key={`e-${i}`} className={styles.ellipsis}>
+            …
+          </span>
         ) : (
           <button
             key={p}
@@ -54,7 +51,7 @@ export const Pagination = ({
           >
             {p}
           </button>
-        )
+        ),
       )}
 
       <IconButton

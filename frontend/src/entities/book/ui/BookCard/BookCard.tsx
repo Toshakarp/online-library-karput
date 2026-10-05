@@ -25,11 +25,7 @@ export const BookCard = memo(({ book, actionSlot }: BookCardProps) => {
           <p className={styles.author}>{book.authorName}</p>
         </Link>
 
-        {actionSlot && (
-          <div className={styles.actions}>
-            {actionSlot}
-          </div>
-        )}
+        {actionSlot && <div className={styles.actions}>{actionSlot}</div>}
       </div>
     </article>
   );

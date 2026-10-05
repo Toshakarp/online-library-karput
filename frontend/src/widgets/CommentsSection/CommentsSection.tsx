@@ -19,7 +19,7 @@ export const CommentsSection = memo(({ bookOlid }: CommentsSectionProps) => {
 
   const loadComments = useCallback(
     (p: number) => fetchBookComments(bookOlid, { page: p, limit }),
-    [bookOlid, limit, fetchBookComments]
+    [bookOlid, limit, fetchBookComments],
   );
 
   useEffect(() => {
@@ -30,10 +30,13 @@ export const CommentsSection = memo(({ bookOlid }: CommentsSectionProps) => {
     };
   }, [loadComments, reset]);
 
-  const handlePageChange = useCallback((p: number) => {
-    setPage(p);
-    loadComments(p);
-  }, [loadComments, setPage]);
+  const handlePageChange = useCallback(
+    (p: number) => {
+      setPage(p);
+      loadComments(p);
+    },
+    [loadComments, setPage],
+  );
 
   const handleRetry = useCallback(() => {
     loadComments(page);

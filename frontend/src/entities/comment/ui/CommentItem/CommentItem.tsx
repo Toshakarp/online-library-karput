@@ -11,12 +11,7 @@ export interface CommentItemProps {
   onClick?: () => void;
 }
 
-export const CommentItem = memo(({
-  comment,
-  actionsSlot,
-  editSlot,
-  onClick,
-}: CommentItemProps) => {
+export const CommentItem = memo(({ comment, actionsSlot, editSlot, onClick }: CommentItemProps) => {
   const formattedDate = new Date(comment.createdAt).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
@@ -48,11 +43,7 @@ export const CommentItem = memo(({
             </>
           ) : (
             <>
-              <Avatar
-                src={comment.author?.avatarUrl ?? undefined}
-                name={authorName}
-                size="sm"
-              />
+              <Avatar src={comment.author?.avatarUrl ?? undefined} name={authorName} size="sm" />
               <div className={styles.authorInfo}>
                 <span className={styles.authorName}>{authorName}</span>
                 <span className={styles.date}>
@@ -72,9 +63,7 @@ export const CommentItem = memo(({
       </div>
 
       {editSlot ? (
-        <div onClick={(e) => e.stopPropagation()}>
-          {editSlot}
-        </div>
+        <div onClick={(e) => e.stopPropagation()}>{editSlot}</div>
       ) : (
         <p
           className={[styles.content, onClick ? styles.clickable : ''].filter(Boolean).join(' ')}

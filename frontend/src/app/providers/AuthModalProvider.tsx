@@ -11,7 +11,7 @@ export const AuthModalProvider = ({ children }: { children: ReactNode }) => {
 
   const actions = useMemo(
     () => ({ openAuthModal, closeAuthModal }),
-    [openAuthModal, closeAuthModal]
+    [openAuthModal, closeAuthModal],
   );
 
   return (

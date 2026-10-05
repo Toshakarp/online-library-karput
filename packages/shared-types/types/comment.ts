@@ -1,5 +1,5 @@
-import { UserProfile } from './user';
-import { CachedBook } from './book';
+import type { UserProfile } from './user';
+import type { CachedBook } from './book';
 
 export type CommentBookInfo = Pick<CachedBook, 'olid' | 'title' | 'authorName' | 'coverUrl'>;
 

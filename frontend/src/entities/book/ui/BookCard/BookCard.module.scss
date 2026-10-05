@@ -8,7 +8,9 @@
   background: $color-bg-white;
   border: 1px solid $color-border;
   border-radius: $radius-2xl;
-  transition: box-shadow $transition-base, transform $transition-base;
+  transition:
+    box-shadow $transition-base,
+    transform $transition-base;
 
   &:hover {
     box-shadow: $shadow-md;
@@ -75,4 +77,3 @@
 .skeletonPill {
   border-radius: $radius-pill;
 }
-

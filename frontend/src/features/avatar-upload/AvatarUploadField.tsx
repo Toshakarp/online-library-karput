@@ -49,12 +49,13 @@ export const AvatarUploadField = ({
   const displayUrl = localPreview ?? currentAvatarUrl;
 
   return (
-    <div
-      className={styles.wrapper}
-      onClick={() => inputRef.current?.click()}
-    >
+    <div className={styles.wrapper} onClick={() => inputRef.current?.click()}>
       <Avatar src={displayUrl} name={name} size="lg" />
-      <div className={[styles.overlay, uploading ? styles.overlayVisible : ''].filter(Boolean).join(' ')}>
+      <div
+        className={[styles.overlay, uploading ? styles.overlayVisible : '']
+          .filter(Boolean)
+          .join(' ')}
+      >
         {uploading ? <Spinner size="sm" color="white" /> : <Camera size={20} />}
       </div>
       <input
@@ -68,4 +69,3 @@ export const AvatarUploadField = ({
     </div>
   );
 };
-

@@ -67,11 +67,7 @@ export const ChangePasswordForm = ({ onSuccess, onCancel }: ChangePasswordFormPr
           label="Current password"
           autoComplete="current-password"
         />
-        <PasswordField
-          name="newPassword"
-          label="New password"
-          autoComplete="new-password"
-        />
+        <PasswordField name="newPassword" label="New password" autoComplete="new-password" />
         <PasswordField
           name="confirmPassword"
           label="Confirm new password"

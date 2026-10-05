@@ -11,43 +11,45 @@ interface SearchBarProps {
   initialValue?: string;
 }
 
-export const SearchBar = memo(({
-  onSearch,
-  placeholder = 'Search books by title or author...',
-  initialValue = '',
-}: SearchBarProps) => {
-  const [query, setQuery] = useState(initialValue);
+export const SearchBar = memo(
+  ({
+    onSearch,
+    placeholder = 'Search books by title or author...',
+    initialValue = '',
+  }: SearchBarProps) => {
+    const [query, setQuery] = useState(initialValue);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    onSearch(query.trim());
-  };
+    const handleSubmit = (e: FormEvent) => {
+      e.preventDefault();
+      onSearch(query.trim());
+    };
 
-  const handleClear = () => {
-    setQuery('');
-    onSearch('');
-  };
+    const handleClear = () => {
+      setQuery('');
+      onSearch('');
+    };
 
-  return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <div className={styles.inputWrap}>
-        <Input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder={placeholder}
-          leftIcon={<Search size={16} />}
-          rightIcon={
-            query ? (
-              <IconButton label="Clear search" size="sm" onClick={handleClear}>
-                <X size={14} />
-              </IconButton>
-            ) : undefined
-          }
-        />
-      </div>
-      <Button type="submit">Search</Button>
-    </form>
-  );
-});
+    return (
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.inputWrap}>
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={placeholder}
+            leftIcon={<Search size={16} />}
+            rightIcon={
+              query ? (
+                <IconButton label="Clear search" size="sm" onClick={handleClear}>
+                  <X size={14} />
+                </IconButton>
+              ) : undefined
+            }
+          />
+        </div>
+        <Button type="submit">Search</Button>
+      </form>
+    );
+  },
+);
 
 SearchBar.displayName = 'SearchBar';

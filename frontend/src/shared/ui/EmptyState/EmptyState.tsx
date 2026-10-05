@@ -4,6 +4,7 @@ import styles from './EmptyState.module.scss';
 export interface EmptyStateProps {
   icon?: ReactNode;
   illustrationSrc?: string;
+  illustrationSize?: 'md' | 'lg';
   title: string;
   description?: string;
   actionSlot?: ReactNode;
@@ -13,6 +14,7 @@ export interface EmptyStateProps {
 export const EmptyState = ({
   icon,
   illustrationSrc,
+  illustrationSize = 'md',
   title,
   description,
   actionSlot,
@@ -20,7 +22,13 @@ export const EmptyState = ({
 }: EmptyStateProps) => (
   <div className={[styles.container, compact ? styles.compact : ''].filter(Boolean).join(' ')}>
     {illustrationSrc && (
-      <img src={illustrationSrc} alt="" className={styles.illustration} />
+      <img
+        src={illustrationSrc}
+        alt=""
+        className={[styles.illustration, illustrationSize === 'lg' ? styles.illustrationLg : '']
+          .filter(Boolean)
+          .join(' ')}
+      />
     )}
     {icon && <div className={styles.iconBadge}>{icon}</div>}
     <h3 className={styles.title}>{title}</h3>

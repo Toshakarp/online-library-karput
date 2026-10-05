@@ -12,14 +12,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
+  min-width: 36px;
+  width: auto;
   height: 36px;
+  padding: 0 $space-2;
   border-radius: $radius-md;
   border: 1px solid $color-border;
   background: $color-bg-white;
   color: $color-text-secondary;
   font-size: $font-size-sm;
   font-weight: $font-weight-medium;
+  white-space: nowrap;
   cursor: pointer;
   transition: all $transition-base;
 

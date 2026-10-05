@@ -76,9 +76,7 @@ export const openLibraryRepository = {
             const authorData: any = await authorRes.json();
             authorName = authorData.name || authorName;
           }
-        } catch {
-
-        }
+        } catch {}
       }
 
       const book: BookDetails = {

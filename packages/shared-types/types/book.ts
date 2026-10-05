@@ -1,4 +1,4 @@
-import { ReadingStatus } from './status';
+import type { ReadingStatus } from './status';
 
 export interface CachedBook {
   olid: string;

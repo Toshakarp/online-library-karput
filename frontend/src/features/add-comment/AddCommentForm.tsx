@@ -43,12 +43,7 @@ export const AddCommentForm = memo(({ bookOlid }: AddCommentFormProps) => {
         rows={3}
       />
       <div className={styles.actions}>
-        <Button
-          type="submit"
-          size="sm"
-          isLoading={loading}
-          disabled={!hasText}
-        >
+        <Button type="submit" size="sm" isLoading={loading} disabled={!hasText}>
           {loading ? 'Posting…' : 'Post comment'}
         </Button>
       </div>

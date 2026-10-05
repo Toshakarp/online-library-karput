@@ -4,7 +4,11 @@ import { DomainError, BadGatewayError } from '@/errors/app.errors.js';
 import type { CachedBook, BookDetails } from 'shared-types';
 
 export const openLibraryService = {
-  async searchBooks(query: string, page: number, limit: number): Promise<{ items: CachedBook[]; total: number }> {
+  async searchBooks(
+    query: string,
+    page: number,
+    limit: number,
+  ): Promise<{ items: CachedBook[]; total: number }> {
     const cacheKey = `search:${query}:${page}:${limit}`;
 
     const cached = cacheUtil.get<{ items: CachedBook[]; total: number }>(cacheKey);

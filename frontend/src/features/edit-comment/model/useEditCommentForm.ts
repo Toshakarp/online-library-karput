@@ -12,7 +12,7 @@ export const useEditCommentForm = ({ comment, onSuccess }: UseEditCommentFormOpt
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [hasText, setHasText] = useState(Boolean(comment.content.trim()));
   const [saving, setSaving] = useState(false);
-  
+
   const patchComment = useCommentStore((s) => s.patchComment);
   const { showToast } = useToast();
 
@@ -38,7 +38,7 @@ export const useEditCommentForm = ({ comment, onSuccess }: UseEditCommentFormOpt
       showToast(
         'error',
         'Failed to update comment',
-        err instanceof Error ? err.message : undefined
+        err instanceof Error ? err.message : undefined,
       );
     } finally {
       setSaving(false);

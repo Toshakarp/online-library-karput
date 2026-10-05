@@ -1,9 +1,5 @@
 import { apiClient } from '@/shared/api/apiClient';
-import {
-  BookDetails,
-  BookWithUserInteraction,
-  PaginatedResponse,
-} from 'shared-types';
+import { BookDetails, BookWithUserInteraction, PaginatedResponse } from 'shared-types';
 
 export interface SearchBooksParams {
   q?: string;

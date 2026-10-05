@@ -22,21 +22,12 @@ export interface DropdownProps {
   align?: 'left' | 'right';
 }
 
-export const Dropdown = ({
-  trigger,
-  items,
-  isOpen,
-  onClose,
-  align = 'right',
-}: DropdownProps) => {
+export const Dropdown = ({ trigger, items, isOpen, onClose, align = 'right' }: DropdownProps) => {
   const wrapRef = useRef<HTMLDivElement>(null);
 
   useClickOutside(wrapRef, onClose, isOpen);
 
-  const menuClasses = [
-    styles.menu,
-    align === 'left' ? styles.alignLeft : styles.alignRight,
-  ]
+  const menuClasses = [styles.menu, align === 'left' ? styles.alignLeft : styles.alignRight]
     .filter(Boolean)
     .join(' ');
 
@@ -67,7 +58,9 @@ export const Dropdown = ({
                   <span
                     className={[
                       styles.dot,
-                      styles[`dot${item.dotColor.charAt(0).toUpperCase() + item.dotColor.slice(1)}`],
+                      styles[
+                        `dot${item.dotColor.charAt(0).toUpperCase() + item.dotColor.slice(1)}`
+                      ],
                     ].join(' ')}
                   />
                 )}

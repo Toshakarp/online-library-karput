@@ -16,7 +16,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
       setToasts((prev) => [...prev, { id, type, title, message }]);
       setTimeout(() => removeToast(id), 5000);
     },
-    [removeToast]
+    [removeToast],
   );
 
   useEffect(() => {

@@ -10,5 +10,5 @@ export const storageService = {
 
   async deleteAvatar(userId: string): Promise<void> {
     await storageRepository.deleteAvatar(userId);
-  }
+  },
 };

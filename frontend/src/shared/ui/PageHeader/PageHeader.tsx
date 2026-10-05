@@ -36,9 +36,7 @@ export const PageHeader = ({
         {title && (
           <div className={styles.titleBlock}>
             <div className={styles.titleRow}>
-              <HeadingTag className={level === 'h1' ? styles.h1 : styles.h2}>
-                {title}
-              </HeadingTag>
+              <HeadingTag className={level === 'h1' ? styles.h1 : styles.h2}>{title}</HeadingTag>
               {badgeCount !== undefined && badgeCount > 0 && (
                 <span className={styles.badge}>{badgeCount}</span>
               )}

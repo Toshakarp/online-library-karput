@@ -17,7 +17,7 @@ const MyCommentsPage = () => {
 
   const loadComments = useCallback(
     (p: number) => fetchUserComments({ page: p, limit }),
-    [limit, fetchUserComments]
+    [limit, fetchUserComments],
   );
 
   useEffect(() => {

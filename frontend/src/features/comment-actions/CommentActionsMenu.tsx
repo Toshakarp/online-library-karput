@@ -12,10 +12,7 @@ interface CommentActionsMenuProps {
   onEditStart: () => void;
 }
 
-export const CommentActionsMenu = ({
-  comment,
-  onEditStart,
-}: CommentActionsMenuProps) => {
+export const CommentActionsMenu = ({ comment, onEditStart }: CommentActionsMenuProps) => {
   const user = useAuthStore((s) => s.user);
   const removeComment = useCommentStore((s) => s.removeComment);
   const { showToast } = useToast();
@@ -30,7 +27,11 @@ export const CommentActionsMenu = ({
       removeComment(comment.id);
       showToast('success', 'Comment deleted');
     } catch (err) {
-      showToast('error', 'Failed to delete comment', err instanceof Error ? err.message : undefined);
+      showToast(
+        'error',
+        'Failed to delete comment',
+        err instanceof Error ? err.message : undefined,
+      );
     }
   };
 
@@ -38,7 +39,10 @@ export const CommentActionsMenu = ({
     {
       label: 'Edit',
       icon: <Edit2 size={14} />,
-      onClick: () => { setIsOpen(false); onEditStart(); },
+      onClick: () => {
+        setIsOpen(false);
+        onEditStart();
+      },
     },
     {
       label: 'Delete',

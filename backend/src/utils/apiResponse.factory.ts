@@ -6,5 +6,5 @@ export const apiResponseFactory = {
   },
   error<T>(code: string, message: string): ApiResponse<T> {
     return { success: false, error: { code, message } };
-  }
+  },
 };

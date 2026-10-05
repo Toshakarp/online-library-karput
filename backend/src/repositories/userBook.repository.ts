@@ -1,6 +1,11 @@
 import { supabase } from '@/config/supabase.config.js';
 import { mapToUserBookInteraction } from './mappers/index.js';
-import type { UserBookInteraction, GetUserBooksQueryDto, ReadingStatus, BookWithUserInteraction } from 'shared-types';
+import type {
+  UserBookInteraction,
+  GetUserBooksQueryDto,
+  ReadingStatus,
+  BookWithUserInteraction,
+} from 'shared-types';
 
 const mapToBookWithUserInteraction = (data: any): BookWithUserInteraction => ({
   olid: data.cached_books.olid,
@@ -28,10 +33,14 @@ export const userBookRepository = {
     return mapToUserBookInteraction(data);
   },
 
-  async upsert(userId: string, bookOlid: string, data: { isLiked?: boolean; status?: ReadingStatus | null }): Promise<void> {
+  async upsert(
+    userId: string,
+    bookOlid: string,
+    data: { isLiked?: boolean; status?: ReadingStatus | null },
+  ): Promise<void> {
     const existing = await this.findInteraction(userId, bookOlid);
-    const isLiked = data.isLiked !== undefined ? data.isLiked : (existing ? existing.isLiked : false);
-    const status = data.status !== undefined ? data.status : (existing ? existing.status : null);
+    const isLiked = data.isLiked !== undefined ? data.isLiked : existing ? existing.isLiked : false;
+    const status = data.status !== undefined ? data.status : existing ? existing.status : null;
 
     if (!isLiked && !status) {
       if (existing) {
@@ -55,7 +64,10 @@ export const userBookRepository = {
     if (error) throw error;
   },
 
-  async findInteractionsByOlids(userId: string, bookOlids: string[]): Promise<Record<string, UserBookInteraction>> {
+  async findInteractionsByOlids(
+    userId: string,
+    bookOlids: string[],
+  ): Promise<Record<string, UserBookInteraction>> {
     const { data, error } = await supabase
       .from('user_books')
       .select('id, user_id, book_olid, is_liked, status, updated_at')
@@ -71,14 +83,20 @@ export const userBookRepository = {
     return result;
   },
 
-  async getUserBooks(userId: string, query: GetUserBooksQueryDto): Promise<{ items: BookWithUserInteraction[]; total: number }> {
+  async getUserBooks(
+    userId: string,
+    query: GetUserBooksQueryDto,
+  ): Promise<{ items: BookWithUserInteraction[]; total: number }> {
     let queryBuilder = supabase
       .from('user_books')
-      .select(`is_liked, status, updated_at,
+      .select(
+        `is_liked, status, updated_at,
         cached_books!inner (
           olid, title, author_name, cover_url, likes_count, created_at
         )
-      `, { count: 'exact' })
+      `,
+        { count: 'exact' },
+      )
       .eq('user_id', userId);
 
     if (query.category === 'liked') {
@@ -92,10 +110,9 @@ export const userBookRepository = {
     }
 
     if (query.q) {
-      queryBuilder = queryBuilder.or(
-        `title.ilike.%${query.q}%,author_name.ilike.%${query.q}%`,
-        { referencedTable: 'cached_books' }
-      );
+      queryBuilder = queryBuilder.or(`title.ilike.%${query.q}%,author_name.ilike.%${query.q}%`, {
+        referencedTable: 'cached_books',
+      });
     }
 
     queryBuilder = queryBuilder.order('updated_at', { ascending: false });
@@ -114,5 +131,5 @@ export const userBookRepository = {
       .map(mapToBookWithUserInteraction);
 
     return { items, total: count || 0 };
-  }
+  },
 };

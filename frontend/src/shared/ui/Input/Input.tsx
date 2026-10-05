@@ -19,7 +19,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       rightIcon ? styles.withRight : '',
       error ? styles.error : '',
       className ?? '',
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     return (
       <div className={styles.wrapper}>
@@ -48,7 +50,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Input.displayName = 'Input';

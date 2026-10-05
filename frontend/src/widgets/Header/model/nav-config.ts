@@ -16,14 +16,24 @@ export const NAV_ITEMS = {
   MY_BOOKS: { id: 'my-books', label: 'My Books', to: ROUTES.MY_BOOKS, icon: Library, exact: true },
   LIKES: { id: 'likes', label: 'Likes', to: ROUTES.MY_BOOKS_CATEGORY('liked'), icon: Heart },
   PROFILE: { id: 'profile', label: 'Profile', to: ROUTES.PROFILE, icon: User, exact: true },
-  CHANGE_PASSWORD: { id: 'change-password', label: 'Change Password', to: ROUTES.CHANGE_PASSWORD, icon: Settings, exact: true },
-  SIGN_OUT: { id: 'sign-out', label: 'Sign out', to: ROUTES.HOME, icon: LogOut, danger: true, dividerBefore: true },
+  CHANGE_PASSWORD: {
+    id: 'change-password',
+    label: 'Change Password',
+    to: ROUTES.CHANGE_PASSWORD,
+    icon: Settings,
+    exact: true,
+  },
+  SIGN_OUT: {
+    id: 'sign-out',
+    label: 'Sign out',
+    to: ROUTES.HOME,
+    icon: LogOut,
+    danger: true,
+    dividerBefore: true,
+  },
 } as const satisfies Record<string, NavItem>;
 
-export const DESKTOP_MAIN_NAV: NavItem[] = [
-  NAV_ITEMS.HOME,
-  NAV_ITEMS.MY_BOOKS,
-];
+export const DESKTOP_MAIN_NAV: NavItem[] = [NAV_ITEMS.HOME, NAV_ITEMS.MY_BOOKS];
 
 export const DESKTOP_USER_DROPDOWN: NavItem[] = [
   NAV_ITEMS.PROFILE,

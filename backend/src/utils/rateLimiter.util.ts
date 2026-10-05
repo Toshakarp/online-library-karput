@@ -11,7 +11,7 @@ const processQueue = async () => {
     if (task) {
       await task();
       if (queue.length > 0) {
-        await new Promise(resolve => setTimeout(resolve, intervalMs));
+        await new Promise((resolve) => setTimeout(resolve, intervalMs));
       }
     }
   }
@@ -32,5 +32,5 @@ export const rateLimiterUtil = {
       });
       processQueue();
     });
-  }
+  },
 };

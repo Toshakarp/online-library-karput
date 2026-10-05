@@ -51,7 +51,9 @@
   font-size: $font-size-base;
   font-family: $font-family-base;
   padding: 0 $space-4;
-  transition: border-color $transition-base, box-shadow $transition-base;
+  transition:
+    border-color $transition-base,
+    box-shadow $transition-base;
 
   &::placeholder {
     color: $color-text-muted;

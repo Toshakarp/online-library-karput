@@ -18,13 +18,7 @@ const getInitials = (name: string): string =>
     .join('')
     .toUpperCase();
 
-export const Avatar = ({
-  src,
-  alt = '',
-  name,
-  size = 'md',
-  className,
-}: AvatarProps) => {
+export const Avatar = ({ src, alt = '', name, size = 'md', className }: AvatarProps) => {
   const classes = [styles.avatar, styles[size], className ?? ''].filter(Boolean).join(' ');
 
   if (src) {

@@ -4,10 +4,7 @@ import { useCallback } from 'react';
 export function useQueryParams() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const get = useCallback(
-    (key: string) => searchParams.get(key),
-    [searchParams]
-  );
+  const get = useCallback((key: string) => searchParams.get(key), [searchParams]);
 
   const set = useCallback(
     (key: string, value: string | null) => {
@@ -21,7 +18,7 @@ export function useQueryParams() {
         return next;
       });
     },
-    [setSearchParams]
+    [setSearchParams],
   );
 
   return { get, set };

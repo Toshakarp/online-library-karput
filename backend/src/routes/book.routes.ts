@@ -7,12 +7,23 @@ import { z } from 'zod';
 const router = Router();
 
 const searchSchema = z.object({
-    q: z.string().min(1),
-    page: z.union([z.string().regex(/^\d+$/).transform(Number), z.number()]).optional().default(1),
-    limit: z.union([z.string().regex(/^\d+$/).transform(Number), z.number()]).optional().default(10)
+  q: z.string().min(1),
+  page: z
+    .union([z.string().regex(/^\d+$/).transform(Number), z.number()])
+    .optional()
+    .default(1),
+  limit: z
+    .union([z.string().regex(/^\d+$/).transform(Number), z.number()])
+    .optional()
+    .default(10),
 });
 
-router.get('/search', optionalAuthMiddleware, validate(searchSchema, 'query'), bookController.search);
+router.get(
+  '/search',
+  optionalAuthMiddleware,
+  validate(searchSchema, 'query'),
+  bookController.search,
+);
 router.get('/:olid', optionalAuthMiddleware, bookController.getByOlid);
 
 export default router;

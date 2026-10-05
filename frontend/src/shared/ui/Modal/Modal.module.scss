@@ -26,9 +26,15 @@
   animation: scaleIn $transition-base;
 }
 
-.sm { max-width: 360px; }
-.md { max-width: 480px; }
-.lg { max-width: 640px; }
+.sm {
+  max-width: 360px;
+}
+.md {
+  max-width: 480px;
+}
+.lg {
+  max-width: 640px;
+}
 
 .header {
   display: flex;

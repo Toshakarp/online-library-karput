@@ -31,7 +31,7 @@ const CatalogBookItem = memo(({ book }: CatalogBookItemProps) => {
         <StatusDropdown book={book} />
       </>
     ),
-    [book]
+    [book],
   );
 
   return (
@@ -91,12 +91,7 @@ export const BookCatalog = ({
           <CatalogBookItem key={book.olid} book={book} />
         ))}
       </div>
-      <Pagination
-        page={page}
-        total={pagination.total}
-        limit={limit}
-        onPageChange={onPageChange}
-      />
+      <Pagination page={page} total={pagination.total} limit={limit} onPageChange={onPageChange} />
     </>
   );
 };

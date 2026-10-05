@@ -10,9 +10,7 @@ export const optionalAuthMiddleware = (req: Request, res: Response, next: NextFu
     try {
       const decoded = jwtUtil.verify(token);
       req.user = { id: decoded.userId };
-    } catch {
-
-    }
+    } catch {}
   }
 
   next();

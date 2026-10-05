@@ -6,23 +6,18 @@ export interface ApiError extends Error {
   status: number;
 }
 
-export const createApiError = (
-  message: string,
-  code: string,
-  status: number
-): ApiError =>
+export const createApiError = (message: string, code: string, status: number): ApiError =>
   Object.assign(new Error(message), {
     name: 'ApiError',
     code,
     status,
   });
 
-const rawBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? '').replace(
-  /\/+$/,
-  ''
-);
+const rawBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/+$/, '');
 const BASE_URL = rawBaseUrl
-  ? (rawBaseUrl.endsWith('/api') ? rawBaseUrl : `${rawBaseUrl}/api`)
+  ? rawBaseUrl.endsWith('/api')
+    ? rawBaseUrl
+    : `${rawBaseUrl}/api`
   : '/api';
 
 type ErrorHandler = (message: string) => void;
@@ -74,7 +69,7 @@ const buildUrl = (path: string, params?: QueryParams): string => {
 
 const buildHeaders = (
   customHeaders?: Record<string, string>,
-  hasJsonBody?: boolean
+  hasJsonBody?: boolean,
 ): Record<string, string> => {
   const token = getAuthToken();
 

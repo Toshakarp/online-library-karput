@@ -5,7 +5,6 @@ import { ZodError } from 'zod';
 export const validate = (schema: ZodSchema, source: 'body' | 'query' | 'params') => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-
       const parsed = schema.parse(req[source]);
 
       if (source === 'query') {
@@ -25,8 +24,8 @@ export const validate = (schema: ZodSchema, source: 'body' | 'query' | 'params')
           error: {
             code: 'VALIDATION_ERROR',
             message: 'Invalid request data',
-            details: error.issues
-          }
+            details: error.issues,
+          },
         });
       } else {
         next(error);
